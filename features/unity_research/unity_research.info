@@ -1,0 +1,17 @@
+name = Unity Research
+core = 7.x
+package = Features
+version = 7.x-1.0
+dependencies[] = features
+dependencies[] = link
+dependencies[] = text
+dependencies[] = views
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:2
+features[field_base][] = field_link_research
+features[field_instance][] = node-unity_research-body
+features[field_instance][] = node-unity_research-field_link_research
+features[node][] = unity_research
+features[views_view][] = research_landing_page
+features_exclude[dependencies][ctools] = ctools
+features_exclude[field_base][body] = body

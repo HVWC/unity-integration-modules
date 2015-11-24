@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Unity Services Views feature.
+ */
+
+include_once 'unity_services_views.features.inc';

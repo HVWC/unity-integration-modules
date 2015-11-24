@@ -1,0 +1,5 @@
+name = Custom Unity
+description = Custom module for unity site.
+package = Custom
+core = 7.x
+stylesheets[all][] = custom_unity.css

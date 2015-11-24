@@ -1,0 +1,231 @@
+<?php
+
+/**
+ * @file
+ * Custom functionality for Unity / Drupal integration
+ */
+
+/**
+ * Implements hook_form_alter().
+ *
+ */
+function custom_unity_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'placard_node_form' || $form_id == 'unity_environment_node_form') {
+    $form['location_container_markup_top']['#markup'] = '<div class="location-field-continer">';
+    $form['field_placard_location']['#weight'] = 3;
+    $form['field_elevation']['#weight'] = 4;
+    $form['field_placard_orientation']['#weight'] = 6;
+    $form['field_placard_image']['#weight'] = 7;
+    $form['location_container_markup_top']['#weight'] = 2;
+    $form['location_container_markup_bottom']['#markup'] = '</div>';
+    $form['location_container_markup_bottom']['#weight'] = 5;
+  }
+  if ($form_id == 'placard_node_form') {
+    if (isset($_GET['latitude'])) {
+      $form['field_placard_location']['und'][0]['#default_value']['locpick']['user_latitude'] = $_GET['latitude'];
+    }
+    if (isset($_GET['longitude'])) {
+      $form['field_placard_location']['und'][0]['#default_value']['locpick']['user_longitude'] = $_GET['longitude'];
+    }
+    if (isset($_GET['elevation'])) {
+      $form['field_elevation']['und'][0]['value']['#default_value'] = $_GET['elevation'];
+    }
+    if (isset($_GET['layer'])) {
+      $form['field_layer']['und'][0]['value']['#default_value'] = $_GET['layer'];
+    }
+    if (isset($_GET['orientation_latitude'])) {
+      $form['field_placard_orientation']['und'][0]['#default_value']['locpick']['user_latitude'] = $_GET['orientation_latitude'];
+    }
+    if (isset($_GET['orientation_longitude'])) {
+      $form['field_placard_orientation']['und'][0]['#default_value']['locpick']['user_longitude'] = $_GET['orientation_longitude'];
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_node().
+ *
+ */
+function custom_unity_preprocess_node(&$vars) {
+  if ($vars['node']->type == 'unity_environment') {
+    drupal_add_js(libraries_get_path('cookie.js') . '/jquery.cookie.js');
+    drupal_add_js(libraries_get_path('unityobject.js') . '/UnityObject.js');
+    drupal_add_js(drupal_get_path('module', 'custom_unity') . '/DrupalBehaviorsBundled.js');
+    drupal_add_css('//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css', 'external');
+    drupal_add_js('//code.jquery.com/ui/1.11.0/jquery-ui.js', 'external');
+
+    $tour_data = array();
+    foreach ($vars['node']->field_collection_tours['und'] as $value) {
+      $collection_data = field_collection_item_load($value['value']);
+      $tour_id = $collection_data->field_tour['und'][0]['target_id'];
+      $node_tour = node_load($tour_id);
+      $tour_placards = get_placard_list($tour_id);
+      $unity_file = '';
+      if (!empty($collection_data->field_unity_binary['und'][0]['uri'])) {
+        $unity_file = file_create_url($collection_data->field_unity_binary['und'][0]['uri']);
+      }
+      $tour_data[] = array(
+        'tour_id' => $tour_id,
+        'tour_link' => custom_unity_generate_tour_hash_link($node_tour, $tour_placards, $unity_file),
+        'unity_file' => $unity_file,
+        'placards' => $tour_placards,
+      );
+    }
+    $vars['tour_data'] = $tour_data;
+    $vars['default_unity_file_source'] = $tour_data[0]['unity_file'];
+  }
+}
+
+/**
+ * Returns placard list.
+ *
+ */
+function get_placard_list($tour_id) {
+  $placards_list_value = array();
+  $tour = node_load($tour_id);
+  foreach ($tour->field_placards['und'] as $placard) {
+    $node_placard = node_load($placard['target_id']);
+    $placards_list_value[] = array(
+      'nid' => $node_placard->nid,
+      'title' => $node_placard->title,
+      'latitude' => $node_placard->field_placard_location['und'][0]['latitude'],
+      'longitude' => $node_placard->field_placard_location['und'][0]['longitude'],
+      'elevation' => $node_placard->field_elevation['und'][0]['value'],
+      'layer' => $node_placard->field_layer['und'][0]['value'],
+      'placard_link' => custom_unity_generate_placard_hash_link($tour, $node_placard),
+    );
+  }
+  return $placards_list_value;
+}
+
+function custom_unity_generate_tour_hash_link($tour, $placard, $unity_file) {
+  $tour_id = $tour->nid;
+  $tour_title = $tour->title;
+  $default_placard_id = $placard[0]['nid'];
+  $default_placard_title = $placard[0]['title'];
+  $default_placard_latitude = $placard[0]['latitude'];
+  $default_placard_longitude = $placard[0]['longitude'];
+  $default_placard_elevation = $placard[0]['elevation'];
+  $default_placard_layer = $placard[0]['layer'];
+  $custom_hash_query_string = 'tid=' . $tour->nid . '&tour_title=' . $tour->title . '&pid=' . $default_placard_id
+    . '&placard_title=' . $default_placard_title . '&latitude=' . $default_placard_latitude . '&longitude=' . $default_placard_longitude
+    . '&elevation=' . $default_placard_elevation . '&layer=' . $default_placard_layer . '&unity_file=' . $unity_file;
+  $hash_link = l(t($tour_title), '', array(
+    'attributes' => array('class' => 'tour-link-item'),
+    'fragment' => $custom_hash_query_string,
+    'external' => TRUE,
+  ));
+
+  return $hash_link;
+}
+
+function custom_unity_generate_placard_hash_link($tour, $node_placard) {
+  $tour_id = $tour->nid;
+  $tour_title = $tour->title;
+  $placard_id = $node_placard->nid;
+  $placard_title = $node_placard->title;
+  $placard_latitude = $node_placard->field_placard_location['und'][0]['latitude'];
+  $placard_longitude = $node_placard->field_placard_location['und'][0]['longitude'];
+  $placard_elevation = $node_placard->field_elevation['und'][0]['value'];
+  $placard_layer = $node_placard->field_layer['und'][0]['value'];
+  $custom_hash_query_string = 'tid=' . $tour_id . '&tour_title=' . $tour_title . '&pid=' . $placard_id
+    . '&placard_title=' . $placard_title . '&latitude=' . $placard_latitude . '&longitude=' . $placard_longitude
+    . '&elevation=' . $placard_elevation . '&layer=' . $placard_layer;
+  $hash_link = l(t($placard_title), '', array(
+    'attributes' => array('class' => 'placard-link'),
+    'fragment' => $custom_hash_query_string,
+    'external' => TRUE,
+  ));
+
+  return $hash_link;
+}
+
+/**
+ * Implements hook_theme_registery_alter().
+ *
+ */
+function custom_unity_theme_registry_alter(&$theme_registry) {
+  global $theme;
+  $theme_registry_copy = $theme_registry;
+  $module_path = drupal_get_path('module', 'custom_unity') . '/templates';
+  _theme_process_registry($theme_registry_copy, 'phptemplate', 'theme_engine', $theme, $module_path);
+  $theme_registry += array_diff_key($theme_registry_copy, $theme_registry);
+  // A list of templates the module will provide templates for
+  $hooks = array('node');
+  foreach ($hooks as $hook) {
+    // Add the key 'theme paths' if it doesn't exist in this theme's registry
+    if (!isset($theme_registry[$hook]['theme paths'])) {
+      $theme_registry[$hook]['theme paths'] = array();
+    }
+    // Shift this module's directory to the top of the theme path list
+    if (is_array($theme_registry[$hook]['theme paths'])) {
+      $first_element = array_shift($theme_registry[$hook]['theme paths']);
+      if ($first_element) {
+        array_unshift($theme_registry[$hook]['theme paths'], $first_element, $module_path);
+      }
+      else {
+        array_unshift($theme_registry[$hook]['theme paths'], $module_path);
+      }
+    }
+  }
+}
+
+/**
+ * Generates text link for environment.
+ *
+ */
+function environment_link($environment_nid, $title, $tid = '', $pid = '') {
+  $node_url = url('node/' . $environment_nid, array('absolute' => TRUE));
+  $link = l($title, $node_url, array('query' => array(
+    'tid' => $tid,
+    'pid' => $pid
+  )));
+  return $link;
+}
+
+/**
+ * Generates prev/next link for placards.
+ *
+ */
+function placard_index($link_order, $placard_list, $pid) {
+  if (!empty($placard_list)) {
+    foreach ($placard_list as $key => $value) {
+      if (array_search($pid, $value)) {
+        $current_index = $key;
+      }
+    }
+    $max_placard_count = count($placard_list) - 1;
+    switch ($link_order) {
+      case 'next':
+        $next_placard_index = (($current_index + 1) <= $max_placard_count) ? $current_index + 1: '';
+        return $next_placard_index;
+        break;
+      case 'prev':
+        $prev_placard_index = (($current_index - 1) >= 0) ? $current_index - 1: '';
+        return $prev_placard_index;
+        break;
+      case 'current':
+        return $current_index;
+        break;
+    }
+  }
+  else {
+    return FALSE;
+  }
+}
+
+/*
+ * Implements hook_node_view().
+ */
+function custom_unity_node_view($node, $view_mode, $langcode) {
+  if ($view_mode == 'full' && $node->type == 'unity_environment') {
+    $current_environment = array(
+      'id' => $node->nid,
+      'title' => $node->title
+    );
+    $node->content['#attached']['js'][] = array(
+      'data' => array('custom_unity' => array('current_environment' => $current_environment)),
+      'type' => 'setting',
+    );
+  }
+}

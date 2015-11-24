@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Unity Content Types feature.
+ */
+
+include_once 'unity_content_types.features.inc';

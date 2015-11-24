@@ -1,0 +1,14 @@
+name = Unity Services Views
+core = 7.x
+package = Features
+dependencies[] = entityreference
+dependencies[] = services_views
+dependencies[] = views
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:2
+features[views_view][] = environment_tours
+features[views_view][] = placards
+features[views_view][] = placards_by_tid
+features[views_view][] = tours
+features[views_view][] = unity_environment
+features_exclude[dependencies][ctools] = ctools

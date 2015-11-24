@@ -1,0 +1,282 @@
+.form-item-field-placard-location-und-0-country,
+.form-item-field-placard-orientation-und-0-country {
+  display: none;
+}
+.location-field-continer {
+  padding: 0 13px 13px 15px;
+  border: 1px solid #ccc;
+  position: relative;
+  margin: 1em 0;
+}
+#edit-field-placard-location-und-0,
+#edit-field-starting-location-und-0 {
+  border: none;
+}
+fieldset#edit-field-placard-location-und-0 .fieldset-legend,
+fieldset#edit-field-placard-location-und-0 .fieldset-wrapper {
+  padding-left: 0;
+}
+fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldset {
+ padding: 15px;
+}
+.form-item-field-elevation-und-0-value label,
+.form-item-field-layer-und-0-value label {
+  display: block;
+  float: left;
+  text-align: left;
+  width: 10em;
+  padding-right: 10px;
+}
+.form-item-field-elevation-und-0-value input[type="text"],
+#edit-field-layer-und-0-value {
+  display: block;
+  width: 25em;
+  margin-bottom: 5px;
+}
+.form-item-field-elevation-und-0-value.form-item div.description {
+  margin-left: 130px;
+}
+.information-window-container.split-screen {
+  width: 48%;
+  display: inline-block;
+  float: left;
+}
+.world-window-container.split-screen {
+  width: 51%;
+  display: inline-block;
+  float: left;
+  margin-right: 1%;
+}
+
+.world-window-container.world-window-fullscreen {
+  width: 100%;
+}
+.information-window-container.world-window-fullscreen {
+  display: none;
+}
+
+.world-window-container.information-window-fullscreen {
+  position: absolute;
+  z-index: -1000;
+}
+.world-window-container.information-window-fullscreen #unityPlayer {
+  visibility: hidden !important; /* Override inline visibility of unity web player */
+}
+.information-window-container.information-window-fullscreen {
+  width: 100%;
+}
+
+/* Information window */
+.information-window-container {
+  background: #f2f2f2;
+}
+.information-window-container .tour-row-item {
+  background: #eee;
+  padding: 10px 25px;
+  margin-bottom: 0;
+}
+.information-window-container .tour-row-item h3 {
+  width: 80%;
+  display: inline-block;
+  margin: 0;
+}
+.information-window-container .tour-row-item .placard-list-btn {
+  float: right;
+  text-indent: -999em;
+  display: block;
+  width: 15px;
+  background: url(images/dropdown-arrow-down.png) no-repeat;
+  background-size: 100%;
+  margin-top: 10px;
+}
+.information-window-container h3 a {
+  text-decoration: none;
+  color: #202126;
+}
+.information-window-container .side-bar-action-container {
+  background: #fff;
+  padding: 11px 0;
+  margin-bottom: 0;
+  overflow: hidden;
+}
+.information-window-container .placard-list {
+  overflow-y: scroll;
+  max-height: 400px;
+}
+.information-window-container .side-bar-action-container .information-window-size-option {
+  overflow: hidden;
+  height: 47px;
+}
+.information-window-container .side-bar-action-container .environment-title {
+  display: inline-block;
+  line-height: 100%;
+  margin: 0;
+  width: 80%;
+  float: left;
+}
+.information-window-container .side-bar-action-container .information-window-size-option .show-split-screen-information-window-btn {
+  background: url(images/split-screen-alt.png) no-repeat;
+  text-indent: -9999em;
+  display: inline-block;
+  width: 34px;
+  height: 21px;
+  margin-right: 3px;
+  float: right;
+}
+.information-window-container .side-bar-action-container .information-window-size-option .show-full-information-window-btn {
+  background: url(images/full-screen-alt.png) no-repeat;
+  text-indent: -9999em;
+  display: inline-block;
+  width: 34px;
+  height: 21px;
+  margin-right: 3px;
+  float: right;
+}
+.information-window-container .view-information-window .placard-list {
+  padding: 0;
+  display: none;
+}
+.information-window-container .view-information-window .placard-list li {
+  margin-left: 0;
+}
+.information-window-container .view-information-window .placard-info {
+  display: none;
+  padding: 5px 25px;
+}
+.information-window-container .view-information-window .placard-info .placard-image {
+  text-align: center;
+  margin-bottom: 15px;
+}
+.information-window-container .view-information-window .placard-info .placard-image img.spread {
+  width: 100% !important;
+  height: auto !important;
+}
+.information-window-container .view-information-window .views-field-title-1 {
+  padding: 5px 25px;
+  cursor: pointer;
+  border-top: 1px dashed #000;
+  display: block;
+}
+.information-window-container .view-information-window .views-field-title-1 a {
+  text-decoration: none;
+  color: #000;
+  display: block;
+}
+.information-window-container .view-information-window .placard-list li:first-child .views-field-title-1 {
+  border: none;
+} 
+.information-window-container .placard-title-dropdown-container .placard-dropdown-list {
+  padding: 0;
+  list-style: none;
+  display: none;
+  position: absolute;
+  background: #ccc;
+  width: 48%;
+  margin-top: 39px;
+  z-index: 9999;
+}
+.information-window-container.world-window-fullscreen .placard-title-dropdown-container .placard-dropdown-list {
+  width: 48%;
+}
+.information-window-container .placard-title-dropdown-container .placard-dropdown-list li {
+  padding: 10px 20px;
+}
+.information-window-container .placard-title-dropdown-container .placard-dropdown-list li a {
+  text-decoration: none;
+  display: block;
+}
+
+/* World window */
+.world-window-container .top-info {
+  padding: 10px 5px;
+  background: #000;
+  color: #fff;
+  overflow: hidden;
+}
+.world-window-container .top-info .tour-title,
+.world-window-container .top-info .placard-title-dropdown-container {
+  display: inline-block;
+  float: left;
+}
+.world-window-container .top-info .placard-title-dropdown-container {
+  width: 50%;
+}
+.world-window-container .top-info .placard-title-dropdown-container .placard-title {
+  text-align: center;
+  width: 90%;
+  display: inline-block;
+  line-height: 20px;
+}
+.world-window-container .top-info .tour-title {
+  width: 25%;
+  line-height: 20px;
+}
+.world-window-container .top-info .placard-title-dropdown-container .prev-link-container {
+  float: left;
+}
+.world-window-container .top-info .placard-title-dropdown-container .next-link-container {
+  float: right;
+}
+.world-window-container .top-info .placard-title-dropdown-container .prev-link-container a,
+.world-window-container .top-info .placard-title-dropdown-container .next-link-container a {
+  text-indent: -9999em;
+  width: 15px;
+  height: 20px;
+  display: none;
+}
+.world-window-container .top-info .placard-title-dropdown-container .prev-link-container a {
+  background: url(images/prev-placard.png) no-repeat;
+}
+.world-window-container .top-info .placard-title-dropdown-container .next-link-container a {
+  background: url(images/next-placard.png) no-repeat;
+}
+.world-window-container .top-info .world-window-size-option {
+  width: auto;
+  display: inline-block;
+  float: right;
+}
+
+.world-window-container .top-info .world-window-size-option .show-full-world-window-btn {
+  background: url(images/full-screen.png) no-repeat;
+  text-indent: -9999em;
+  display: inline-block;
+  width: 34px;
+  height: 21px;
+  margin-right: 3px;
+}
+.world-window-container .top-info .world-window-size-option .show-split-screen-world-window-btn {
+  display: none;
+  background: url(images/split-screen.png) no-repeat;
+  text-indent: -9999em;
+  display: inline-block;
+  width: 34px;
+  height: 21px;
+  margin-right: 3px;
+}
+.information-window-container .placard-title-dropdown-container {
+  overflow: hidden;
+}
+.information-window-container .placard-title-dropdown-container .placard-title {
+  display: none;
+  width: 97%;
+  text-align: left;
+  cursor: pointer;
+  float: left;
+  background: #ccc url(images/dropdown-arrow-down.png) no-repeat;
+  background-position: 93%;
+  background-size: 16px;
+  padding: 10px 0 10px 20px;
+}
+.information-window-container.information-window-fullscreen .placard-title-dropdown-container .placard-title {
+  width: 100%;
+  background-position: 96%;
+}
+.information-window-container.information-window-fullscreen  .placard-title-dropdown-container .placard-dropdown-list {
+  width: 100%;
+}
+.world-window-container.world-window-fullscreen .top-info .placard-title-dropdown-container .show-information-window-container {
+  float: right;
+}
+.world-window-container.split-screen .top-info .placard-title-dropdown-container .show-information-window-container {
+  display: none;
+}
