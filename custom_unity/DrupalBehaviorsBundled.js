@@ -76,7 +76,6 @@
 
 	    drupal_interface.addEventListener('update_tour_info', function (tour_id, placard_id) {
 	      environment_promise.then(function (environment) {
-	        debugger;
 	        tour_id || (tour_id = environment.tours[0].id);
 	        placard_id || (placard_id = environment.tours[0].placards[0].id);
 	        var tour = environment.getTour(tour_id);
@@ -445,11 +444,15 @@
 
 	var _DrupalInterface3 = _interopRequireDefault(_DrupalInterface2);
 
+	var _q = __webpack_require__(3);
+
+	var _q2 = _interopRequireDefault(_q);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	/**
 	 * An Interface class designed to be defined globally and called from within Unity.
@@ -468,9 +471,9 @@
 	  function DrupalUnityInterface() {
 	    var _this = this;
 
-	    _classCallCheck(this, DrupalUnityInterface);
-
 	    var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+
+	    _classCallCheck(this, DrupalUnityInterface);
 
 	    var default_options = { getWebPlayer: this.defaultGetWebPlayer };
 	    this.options = Object.assign({}, default_options, options);
@@ -571,29 +574,46 @@
 	  }, {
 	    key: 'wrapMethod',
 	    value: function wrapMethod(interface_obj, method_name) {
-	      var _arguments = arguments,
-	          _this3 = this;
+	      var _this3 = this;
 
 	      //Save a reference to the original method outside function scope
 	      var original_method = interface_obj[method_name];
 
 	      this[method_name] = function (game_object, game_object_method, additional_args_json) {
-	        var args = Array.from(_arguments);
-	        var game_object = args.shift();
-	        var game_object_method = args.shift();
-	        var additional_args_json = args;
-
 	        if (!game_object || typeof game_object != 'string') {
 	          throw new Error('You must provide a game_object (string) as the first argument to the ' + method_name + ' method');
 	        }
-	        if (!method_name || typeof method_name != 'string') {
+	        if (!game_object_method || typeof game_object_method != 'string') {
 	          throw new Error('You must provide a game_object_method (string) as the second argument to the ' + method_name + ' method');
 	        }
 	        if (additional_args_json) {
 	          var additional_args = unserializeArgs(additional_args_json);
 	        }
-	        _this3.executeCall(original_method, game_object, game_object_method, additional_args);
+
+	        var result = original_method.apply(interface_obj, additional_args);
+
+	        _this3.ensurePromise(result).then(function (resolved_value) {
+	          _this3.sendMessageToUnity(game_object, game_object_method, JSON.stringify(resolved_value));
+	        });
 	      };
+	    }
+
+	    /*
+	     *  @private
+	     *  If value is a promise, return it
+	     *  else, return a promised resolved to value
+	     */
+
+	  }, {
+	    key: 'ensurePromise',
+	    value: function ensurePromise(value) {
+	      if (value && value.then) {
+	        return value;
+	      } else {
+	        var deferred = _q2.default.defer();
+	        deferred.resolve(value);
+	        return deferred.promise;
+	      }
 	    }
 
 	    /**
@@ -705,9 +725,9 @@
 	   */
 
 	  function DrupalInterface() {
-	    _classCallCheck(this, DrupalInterface);
-
 	    var config = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+
+	    _classCallCheck(this, DrupalInterface);
 
 	    var default_config = {};
 	    this.config = Object.assign(default_config, config);
@@ -1004,30 +1024,34 @@
 	    value: function getPlacards(placard_ids) {
 	      var deferred = Q.defer();
 
-	      var query_ids = placard_ids.join('+');
-	      this.request('/unity-services/specific-placard', { id: query_ids }).then(function (placards) {
-	        placards = placards.map(function (placard) {
-	          return {
-	            id: Number(placard.id),
-	            title: placard.title,
-	            description: placard.description,
-	            image_url: placard.field_image,
-	            location: {
-	              latitude: Number(placard.location.latitude),
-	              longitude: Number(placard.location.longitude),
-	              country: placard.location.country,
-	              elevation: Number(placard.elevation),
-	              orientation: 0
-	            }
-	          };
-	        });
+	      if (!placard_ids || placard_ids.length == 0) {
+	        deferred.resolve([]);
+	      } else {
+	        var query_ids = placard_ids.join('+');
+	        this.request('/unity-services/specific-placard', { id: query_ids }).then(function (placards) {
+	          placards = placards.map(function (placard) {
+	            return {
+	              id: Number(placard.id),
+	              title: placard.title,
+	              description: placard.description,
+	              image_url: placard.field_image,
+	              location: {
+	                latitude: Number(placard.location.latitude),
+	                longitude: Number(placard.location.longitude),
+	                country: placard.location.country,
+	                elevation: Number(placard.elevation),
+	                orientation: Number(placard.orientation)
+	              }
+	            };
+	          });
 
-	        deferred.resolve(placards);
-	      }).catch(function (error) {
-	        console.log('Error getting placards');
-	        console.log('Error getting placards (' + placard_ids.join(',') + ')');
-	        console.log(error);
-	      });
+	          deferred.resolve(placards);
+	        }).catch(function (error) {
+	          console.log('Error getting placards');
+	          console.log('Error getting placards (' + placard_ids.join(',') + ')');
+	          console.log(error);
+	        });
+	      }
 
 	      return deferred.promise;
 	    }
@@ -1077,7 +1101,7 @@
 	            console.warn('Request to ' + request_url + ' failed');
 	          }
 	        } catch (error) {
-	          console.log('Error retrieving request');
+	          console.log('Error retrieving request to ' + request_url);
 	          console.log(error);
 	        }
 	      });

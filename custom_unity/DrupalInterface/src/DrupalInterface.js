@@ -285,32 +285,37 @@ export default class DrupalInterface {
   getPlacards(placard_ids) {
     var deferred = Q.defer();
 
-    let query_ids = placard_ids.join('+');
-    this.request('/unity-services/specific-placard', {id: query_ids})
-    .then((placards) => {
-      placards = placards.map((placard) => {
-        return {
-          id: Number(placard.id),
-          title: placard.title,
-          description: placard.description,
-          image_url: placard.field_image,
-          location: {
-            latitude: Number(placard.location.latitude),
-            longitude: Number(placard.location.longitude),
-            country: placard.location.country,
-            elevation: Number(placard.elevation),
-            orientation: 0,
-          },
-        }
-      });
+    if (!placard_ids || placard_ids.length == 0) {
+      deferred.resolve([]);
+    }
+    else {
+      let query_ids = placard_ids.join('+');
+      this.request('/unity-services/specific-placard', {id: query_ids})
+      .then((placards) => {
+        placards = placards.map((placard) => {
+          return {
+            id: Number(placard.id),
+            title: placard.title,
+            description: placard.description,
+            image_url: placard.field_image,
+            location: {
+              latitude: Number(placard.location.latitude),
+              longitude: Number(placard.location.longitude),
+              country: placard.location.country,
+              elevation: Number(placard.elevation),
+              orientation: Number(placard.orientation)
+            },
+          }
+        });
 
-      deferred.resolve(placards);
-    })
-    .catch((error) => {
-      console.log('Error getting placards');
-      console.log(`Error getting placards (${placard_ids.join(',')})`);
-      console.log(error);
-    });
+        deferred.resolve(placards);
+      })
+      .catch((error) => {
+        console.log('Error getting placards');
+        console.log(`Error getting placards (${placard_ids.join(',')})`);
+        console.log(error);
+      });
+    }
 
     return deferred.promise;
   }
@@ -358,7 +363,7 @@ export default class DrupalInterface {
       }
       }
       catch (error) {
-        console.log('Error retrieving request');
+        console.log(`Error retrieving request to ${request_url}`);
         console.log(error);
       }
     });

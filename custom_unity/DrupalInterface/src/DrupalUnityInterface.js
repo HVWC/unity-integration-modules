@@ -1,4 +1,5 @@
 import DrupalInterface from './DrupalInterface';
+import Q from 'q';
 
 /**
  * An Interface class designed to be defined globally and called from within Unity.
@@ -106,21 +107,38 @@ export default class DrupalUnityInterface {
     let original_method = interface_obj[method_name];
 
     this[method_name] = (game_object, game_object_method, additional_args_json) => {
-      var args = Array.from(arguments);
-      var game_object = args.shift();
-      var game_object_method = args.shift();
-      var additional_args_json = args;
-
       if (!game_object || typeof(game_object) != 'string') {
         throw new Error('You must provide a game_object (string) as the first argument to the '+ method_name +' method');
       }
-      if (!method_name || typeof(method_name) != 'string') {
+      if (!game_object_method || typeof(game_object_method) != 'string') {
         throw new Error('You must provide a game_object_method (string) as the second argument to the '+ method_name +' method');
       }
       if (additional_args_json) {
         var additional_args = unserializeArgs(additional_args_json);
       }
-      this.executeCall(original_method, game_object, game_object_method, additional_args);
+
+      let result = original_method.apply(interface_obj, additional_args);
+
+      this.ensurePromise(result)
+      .then((resolved_value) => {
+        this.sendMessageToUnity(game_object, game_object_method, JSON.stringify(resolved_value));
+      });
+    }
+  }
+
+  /*
+   *  @private
+   *  If value is a promise, return it
+   *  else, return a promised resolved to value
+   */
+  ensurePromise(value) {
+    if (value && value.then) {
+      return value;
+    }
+    else {
+      var deferred = Q.defer();
+      deferred.resolve(value);
+      return deferred.promise;
     }
   }
 
