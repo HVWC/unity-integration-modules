@@ -1001,6 +1001,7 @@
 	        var query_ids = placard_ids.join('+');
 	        this.request('/unity-services/specific-placard', { id: query_ids }).then(function (placards) {
 	          placards = placards.map(function (placard) {
+	            var layer = placard.layer && placard.layer.value ? placard.layer.value : '';
 	            return {
 	              id: Number(placard.id),
 	              title: placard.title,
@@ -1012,7 +1013,8 @@
 	                country: placard.location.country,
 	                elevation: Number(placard.elevation),
 	                orientation: Number(placard.orientation)
-	              }
+	              },
+	              layer: layer
 	            };
 	          });
 

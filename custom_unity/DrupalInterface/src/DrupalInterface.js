@@ -293,6 +293,7 @@ export default class DrupalInterface {
       this.request('/unity-services/specific-placard', {id: query_ids})
       .then((placards) => {
         placards = placards.map((placard) => {
+          let layer = placard.layer && placard.layer.value ? placard.layer.value : '';
           return {
             id: Number(placard.id),
             title: placard.title,
@@ -305,6 +306,7 @@ export default class DrupalInterface {
               elevation: Number(placard.elevation),
               orientation: Number(placard.orientation)
             },
+            layer
           }
         });
 
