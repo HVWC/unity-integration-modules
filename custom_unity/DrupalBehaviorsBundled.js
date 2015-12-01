@@ -440,9 +440,9 @@
 	  value: true
 	});
 
-	var _DrupalInterface2 = __webpack_require__(2);
+	var _DrupalInterface = __webpack_require__(2);
 
-	var _DrupalInterface3 = _interopRequireDefault(_DrupalInterface2);
+	var _DrupalInterface2 = _interopRequireDefault(_DrupalInterface);
 
 	var _q = __webpack_require__(3);
 
@@ -450,7 +450,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -493,7 +493,7 @@
 	     * @type {DrupalInterface}
 	     * @private
 	     */
-	    this.DrupalInterface = new _DrupalInterface3.default(options);
+	    this.DrupalInterface = new _DrupalInterface2.default(options);
 
 	    public_methods.map(function (method_name) {
 	      _this.wrapMethod(_this.DrupalInterface, method_name);
@@ -521,44 +521,14 @@
 
 	    /**
 	     * @private
-	     * Execute a function call and send the result to specified game_object and method on the Unity Binary
-	     *
-	     * @return {Function} func - the function to call
-	     * @return {string} game_object - the name of the Unity game object to return data to
-	     * @return {string} method - the name of the Unity method on the game object to return data to
-	     * @return {Mixed} args - a variable number of arguments to pass to the interface function
-	     *
-	     *
-	     */
-
-	  }, {
-	    key: 'executeCall',
-	    value: function executeCall(func, game_object, method, args) {
-	      var _this2 = this;
-
-	      var result = func.apply(this, args);
-
-	      //If a promise is returned, register .then callback to execute after the promise resolves
-	      if (result && result.then) {
-	        result.then(function (result) {
-	          _this2.sendMessageToUnity(game_object, method, result);
-	        });
-	      }
-	      //Otherwise, send the result right away
-	      else {
-	          this.sendMessageToUnity(game_object, method, result);
-	        }
-	    }
-	  }, {
-	    key: 'sendMessageToUnity',
-
-	    /**
-	     * @private
 	     * Send a message (string) to a particluar Unity game_object / method
 	     */
+
+	  }, {
+	    key: 'sendMessageToUnity',
 	    value: function sendMessageToUnity(game_object, method, message) {
 	      message = JSON.stringify(message);
-	      console.log('Sending message ' + message + ' to game_object "' + game_object + '" on the method "' + method + '"');
+	      console.log('Sending message "' + message + '" to game_object "' + game_object + '" on the method "' + method + '"');
 	      var web_player = this.getWebPlayer();
 	      if (web_player) {
 	        web_player.SendMessage(method, game_object, message);
@@ -569,39 +539,50 @@
 
 	    /**
 	     * @private
+	     * Wrap methods on DrupalInterface with ones which will callback to Unity
+	     * Using the SendMessage function and JSON encoded args that Unity requires
+	     * @param {DrupalInterface} interface_obj
+	     * @param {string} method_name  The name of the method to wrap
 	     */
 
 	  }, {
 	    key: 'wrapMethod',
 	    value: function wrapMethod(interface_obj, method_name) {
-	      var _this3 = this;
+	      var _this2 = this;
 
 	      //Save a reference to the original method outside function scope
 	      var original_method = interface_obj[method_name];
 
-	      this[method_name] = function (game_object, game_object_method, additional_args_json) {
+	      this[method_name] = function (game_object, game_object_method, arg_json) {
+	        var arg;
 	        if (!game_object || typeof game_object != 'string') {
 	          throw new Error('You must provide a game_object (string) as the first argument to the ' + method_name + ' method');
 	        }
 	        if (!game_object_method || typeof game_object_method != 'string') {
 	          throw new Error('You must provide a game_object_method (string) as the second argument to the ' + method_name + ' method');
 	        }
-	        if (additional_args_json) {
-	          var additional_args = unserializeArgs(additional_args_json);
+	        if (arg_json) {
+	          try {
+	            arg = JSON.parse(arg_json);
+	          } catch (e) {
+	            throw new Error('Error decoding JSON argument sent to ' + method_name + ' - "' + arg_json + '" is not valid JSON.');
+	          }
 	        }
 
-	        var result = original_method.apply(interface_obj, additional_args);
+	        var result = original_method.call(interface_obj, arg);
 
-	        _this3.ensurePromise(result).then(function (resolved_value) {
-	          _this3.sendMessageToUnity(game_object, game_object_method, JSON.stringify(resolved_value));
+	        _this2.ensurePromise(result).then(function (resolved_value) {
+	          _this2.sendMessageToUnity(game_object, game_object_method, JSON.stringify(resolved_value));
 	        });
 	      };
 	    }
 
 	    /*
 	     *  @private
-	     *  If value is a promise, return it
-	     *  else, return a promised resolved to value
+	     *  Ensure that a value is formatted as a promise.
+	     *
+	     *  In other words, if value is a promise, return it
+	     *  else, return a promise already resolved to that value
 	     */
 
 	  }, {
@@ -627,14 +608,10 @@
 	  }, {
 	    key: 'addEventListener',
 	    value: function addEventListener(game_object, method_name, event_name) {
-	      var _this4 = this;
+	      var _this3 = this;
 
-	      this.DrupalInterface.addEventListener(event_name, function () {
-	        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	          args[_key] = arguments[_key];
-	        }
-
-	        _this4.sendMessageToUnity(game_object, method_name, args);
+	      this.DrupalInterface.addEventListener(event_name, function (arg) {
+	        _this3.sendMessageToUnity(game_object, method_name, arg);
 	      });
 	    }
 	    /**
@@ -645,18 +622,16 @@
 
 	  }, {
 	    key: 'triggerEvent',
-	    value: function triggerEvent(event_name, json_encoded_args) {
-	      var _DrupalInterface;
-
-	      var args;
-	      if (json_encoded_args) {
+	    value: function triggerEvent(event_name, arg) {
+	      var decoded_arg;
+	      if ((typeof arg === 'undefined' ? 'undefined' : _typeof(arg)) !== undefined) {
 	        try {
-	          args = JSON.parse(json_encoded_args);
+	          decoded_arg = JSON.parse(arg);
 	        } catch (error) {
-	          throw new Error('Arguments sent to DrupalUnityInterface.triggerEvent must be in the form of a JSON-encoded array');
+	          throw new Error('Argument sent to DrupalUnityInterface.triggerEvent must be in the form of a JSON-encoded array. Could not decode.');
 	        }
 	      }
-	      (_DrupalInterface = this.DrupalInterface).triggerEvent.apply(_DrupalInterface, [event_name].concat(_toConsumableArray(args)));
+	      this.DrupalInterface.triggerEvent(event_name, decoded_arg);
 	    }
 	  }]);
 
@@ -753,14 +728,10 @@
 	    }
 	  }, {
 	    key: 'triggerEvent',
-	    value: function triggerEvent(event_name) {
-	      for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-	        args[_key - 1] = arguments[_key];
-	      }
-
+	    value: function triggerEvent(event_name, arg) {
 	      this.event_listeners[event_name] || (this.event_listeners[event_name] = []);
 	      this.event_listeners[event_name].map(function (callback) {
-	        callback.apply(null, args);
+	        callback.call(null, arg);
 	      });
 	    }
 

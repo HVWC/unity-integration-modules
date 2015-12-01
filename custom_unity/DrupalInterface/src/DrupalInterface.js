@@ -52,10 +52,10 @@ export default class DrupalInterface {
     this.event_listeners[event_name].push(callback); 
   }
 
-  triggerEvent(event_name, ...args) {
+  triggerEvent(event_name, arg) {
     this.event_listeners[event_name] || (this.event_listeners[event_name] = []);
     this.event_listeners[event_name].map((callback) => {
-      callback.apply(null, args);  
+      callback.call(null, arg);  
     });
   }
 

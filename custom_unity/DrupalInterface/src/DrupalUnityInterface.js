@@ -59,37 +59,11 @@ export default class DrupalUnityInterface {
 
   /**
    * @private
-   * Execute a function call and send the result to specified game_object and method on the Unity Binary
-   *
-   * @return {Function} func - the function to call
-   * @return {string} game_object - the name of the Unity game object to return data to
-   * @return {string} method - the name of the Unity method on the game object to return data to
-   * @return {Mixed} args - a variable number of arguments to pass to the interface function
-   *
-   *
-   */
-  executeCall(func, game_object, method, args) {
-    let result = func.apply(this, args);
-
-    //If a promise is returned, register .then callback to execute after the promise resolves
-    if (result && result.then) {
-      result.then((result) => {
-        this.sendMessageToUnity(game_object, method, result);
-      });
-    }
-    //Otherwise, send the result right away
-    else {
-      this.sendMessageToUnity(game_object, method, result);
-    }
-  };
-
-  /**
-   * @private
    * Send a message (string) to a particluar Unity game_object / method
    */
   sendMessageToUnity(game_object, method, message) {
     message = JSON.stringify(message);
-    console.log('Sending message '+ message +' to game_object "'+ game_object + '" on the method "'+ method +'"');
+    console.log('Sending message "'+ message +'" to game_object "'+ game_object + '" on the method "'+ method +'"');
     let web_player = this.getWebPlayer();
     if (web_player) {
       web_player.SendMessage(method, game_object, message);
@@ -101,23 +75,33 @@ export default class DrupalUnityInterface {
 
   /**
    * @private
+   * Wrap methods on DrupalInterface with ones which will callback to Unity
+   * Using the SendMessage function and JSON encoded args that Unity requires
+   * @param {DrupalInterface} interface_obj
+   * @param {string} method_name  The name of the method to wrap
    */
   wrapMethod(interface_obj, method_name) {
     //Save a reference to the original method outside function scope
     let original_method = interface_obj[method_name];
 
-    this[method_name] = (game_object, game_object_method, additional_args_json) => {
+    this[method_name] = (game_object, game_object_method, arg_json) => {
+      var arg;
       if (!game_object || typeof(game_object) != 'string') {
         throw new Error('You must provide a game_object (string) as the first argument to the '+ method_name +' method');
       }
       if (!game_object_method || typeof(game_object_method) != 'string') {
         throw new Error('You must provide a game_object_method (string) as the second argument to the '+ method_name +' method');
       }
-      if (additional_args_json) {
-        var additional_args = unserializeArgs(additional_args_json);
+      if (arg_json) {
+        try {
+          arg = JSON.parse(arg_json);
+        }
+        catch (e) {
+          throw new Error(`Error decoding JSON argument sent to ${method_name} - "${arg_json}" is not valid JSON.`);
+        }
       }
 
-      let result = original_method.apply(interface_obj, additional_args);
+      let result = original_method.call(interface_obj, arg);
 
       this.ensurePromise(result)
       .then((resolved_value) => {
@@ -128,8 +112,10 @@ export default class DrupalUnityInterface {
 
   /*
    *  @private
-   *  If value is a promise, return it
-   *  else, return a promised resolved to value
+   *  Ensure that a value is formatted as a promise.
+   *
+   *  In other words, if value is a promise, return it
+   *  else, return a promise already resolved to that value
    */
   ensurePromise(value) {
     if (value && value.then) {
@@ -150,8 +136,8 @@ export default class DrupalUnityInterface {
    *
    */
   addEventListener(game_object, method_name, event_name) {
-    this.DrupalInterface.addEventListener(event_name, (...args) => {
-        this.sendMessageToUnity(game_object, method_name, args);
+    this.DrupalInterface.addEventListener(event_name, (arg) => {
+        this.sendMessageToUnity(game_object, method_name, arg);
     });
   }
   /**
@@ -159,17 +145,17 @@ export default class DrupalUnityInterface {
    * @param {string} event_name  the name of the event to trigger on
    * @param {string} [json_encode_args]  a JSON encoded array of arguments to pass to event listeners
    */
-  triggerEvent(event_name, json_encoded_args) {
-    var args;
-    if (json_encoded_args) {
+  triggerEvent(event_name, arg) {
+    var decoded_arg;
+    if (typeof(arg) !== undefined) {
       try {
-        args = JSON.parse(json_encoded_args); 
+        decoded_arg = JSON.parse(arg); 
       }
       catch (error) {
-        throw new Error('Arguments sent to DrupalUnityInterface.triggerEvent must be in the form of a JSON-encoded array');
+        throw new Error('Argument sent to DrupalUnityInterface.triggerEvent must be in the form of a JSON-encoded array. Could not decode.');
       }
     }
-    this.DrupalInterface.triggerEvent(event_name, ...args);
+    this.DrupalInterface.triggerEvent(event_name, decoded_arg);
   }
 }
 

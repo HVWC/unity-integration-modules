@@ -33,18 +33,6 @@ describe('DrupalInterface', function() {
 
   });
 
-  it('Should support multiple arguments on trigger', function() {
-    TestInterface = new DrupalInterface();
-    TestInterface.addEventListener('test_event', function(test_arg, person, overpaid) {
-      expect(test_arg).to.equal('TEST VALUE');
-      expect(person).to.deep.equal({name: 'John'});
-      expect(overpaid).to.equal(false);
-    });
-
-    TestInterface.triggerEvent('test_event', 'TEST VALUE', {name: 'John'}, false);
-
-  });
-
 
   /*it('Should return correct tour with placards', function(done) {
     var test_tour = DrupalInterface.getTour(123);
