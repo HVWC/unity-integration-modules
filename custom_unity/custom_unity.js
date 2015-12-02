@@ -257,13 +257,14 @@ $ = window.jQuery;
 
   function render_sidebar_placard_list_item(placard, tour_id) {
     var placard = placard[0];
+    var image = placard.image_url ? '<img typeof="foaf:Image" src="' + placard.image_url + '">' : '';
     var placard_items = '<li class="views-row">' +
       '<span class="views-field views-field-title-1 placard-row">' +
         '<a href="#tid='+ tour_id + '&pid=' + placard.id + '" class="placard-row-item">' + placard.title + '</a>' +
       '</span>' +
       '<div class="views-field views-field-nothing placard-info placard-info-' + placard.id + '" style="display: none;">' +
         '<div class="placard-image">' +
-          '<img typeof="foaf:Image" src="' + placard.image_url + '">' +
+          image +
         '</div>' +
         '<div class="placard-body">' + placard.description + '</div>' +
       '</div></li>';
