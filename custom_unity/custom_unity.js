@@ -24,7 +24,10 @@ $ = window.jQuery;
       var initial_binary = $('#unity-source').val();
       unityObject.embedUnity('unityPlayer', initial_binary, '100%', 600, null, {'wmode' : 'opaque'});
 
-      drupal_interface.addEventListener('update_tour_info', function(tour_id, placard_id) {
+      drupal_interface.addEventListener('update_tour_info', function() {
+        var tour_id = drupal_interface.getCurrentTourId();
+        var placard_id = drupal_interface.getCurrentPlacardId();
+         
           environment_promise.then((environment) => {
           tour_id || (tour_id = environment.tours[0].id);
           placard_id || (placard_id = environment.tours[0].placards[0].id);
