@@ -534,7 +534,7 @@
 	      console.log('Sending message "' + message + '" to game_object "' + game_object + '" on the method "' + method + '"');
 	      var web_player = this.getWebPlayer();
 	      if (web_player) {
-	        web_player.SendMessage(method, game_object, message);
+	        web_player.SendMessage(game_object, method, message);
 	      } else {
 	        throw new Error('Could not get the Unity web player');
 	      }
