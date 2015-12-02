@@ -276,7 +276,8 @@
 	  var drupal_interface = window.DrupalUnityInterface.DrupalInterface;
 
 	  $.each(placards, function (index, placard) {
-	    var placard_item_html = '<li class="views-row">' + '<span class="views-field views-field-title-1 placard-row">' + '<a href="#tid=' + tour_id + '&pid=' + placard.id + '" class="placard-row-item">' + placard.title + '</a>' + '</span>' + '<div class="views-field views-field-nothing placard-info placard-info-' + placard.id + '" style="display: none;">' + '<div class="placard-image">' + '<img typeof="foaf:Image" src="' + placard.image_url + '">' + '</div>' + '<div class="placard-body">' + placard.description + '</div>' + '</div></li>';
+	    var image = placard.image_url ? '<img typeof="foaf:Image" src="' + placard.image_url + '">' : '';
+	    var placard_item_html = '<li class="views-row">' + '<span class="views-field views-field-title-1 placard-row">' + '<a href="#tid=' + tour_id + '&pid=' + placard.id + '" class="placard-row-item">' + placard.title + '</a>' + '</span>' + '<div class="views-field views-field-nothing placard-info placard-info-' + placard.id + '" style="display: none;">' + '<div class="placard-image">' + image + '</div>' + '<div class="placard-body">' + placard.description + '</div>' + '</div></li>';
 	    placard_items.push(placard_item_html);
 	  });
 
@@ -286,7 +287,8 @@
 
 	function render_sidebar_placard_list_item(placard, tour_id) {
 	  var placard = placard[0];
-	  var placard_items = '<li class="views-row">' + '<span class="views-field views-field-title-1 placard-row">' + '<a href="#tid=' + tour_id + '&pid=' + placard.id + '" class="placard-row-item">' + placard.title + '</a>' + '</span>' + '<div class="views-field views-field-nothing placard-info placard-info-' + placard.id + '" style="display: none;">' + '<div class="placard-image">' + '<img typeof="foaf:Image" src="' + placard.image_url + '">' + '</div>' + '<div class="placard-body">' + placard.description + '</div>' + '</div></li>';
+	  var image = placard.image_url ? '<img typeof="foaf:Image" src="' + placard.image_url + '">' : '';
+	  var placard_items = '<li class="views-row">' + '<span class="views-field views-field-title-1 placard-row">' + '<a href="#tid=' + tour_id + '&pid=' + placard.id + '" class="placard-row-item">' + placard.title + '</a>' + '</span>' + '<div class="views-field views-field-nothing placard-info placard-info-' + placard.id + '" style="display: none;">' + '<div class="placard-image">' + image + '</div>' + '<div class="placard-body">' + placard.description + '</div>' + '</div></li>';
 	  return placard_items;
 	}
 
@@ -1005,11 +1007,12 @@
 	        this.request('/unity-services/specific-placard', { id: query_ids }).then(function (placards) {
 	          placards = placards.map(function (placard) {
 	            var layer = placard.layer && placard.layer.value ? placard.layer.value : '';
+	            var image_url = !placard.field_image || isEmptyArray(placard.field_image) ? '' : placard.field_image;
 	            return {
 	              id: Number(placard.id),
 	              title: placard.title,
 	              description: placard.description,
-	              image_url: placard.field_image,
+	              image_url: image_url,
 	              location: {
 	                latitude: Number(placard.location.latitude),
 	                longitude: Number(placard.location.longitude),
@@ -1132,6 +1135,10 @@
 	  if (results) {
 	    return results[1];
 	  }
+	};
+
+	var isEmptyArray = function isEmptyArray(arg) {
+	  return typeof arg.length != 'undefined' && arg.length === 0;
 	};
 
 	//Export global, for now

@@ -294,11 +294,12 @@ export default class DrupalInterface {
       .then((placards) => {
         placards = placards.map((placard) => {
           let layer = placard.layer && placard.layer.value ? placard.layer.value : '';
+          let image_url = (!placard.field_image || isEmptyArray(placard.field_image)) ? '' : placard.field_image;
           return {
             id: Number(placard.id),
             title: placard.title,
             description: placard.description,
-            image_url: placard.field_image,
+            image_url,
             location: {
               latitude: Number(placard.location.latitude),
               longitude: Number(placard.location.longitude),
@@ -416,6 +417,10 @@ let getUrlHashParam = function(name) {
   if (results) {
     return results[1];
   }
+}
+
+let isEmptyArray = function(arg) {
+  return (typeof(arg.length) != 'undefined' && arg.length === 0);
 }
 
 //Export global, for now
