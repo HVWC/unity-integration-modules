@@ -276,7 +276,8 @@
 	  var drupal_interface = window.DrupalUnityInterface.DrupalInterface;
 
 	  $.each(placards, function (index, placard) {
-	    var placard_item_html = '<li class="views-row">' + '<span class="views-field views-field-title-1 placard-row">' + '<a href="#tid=' + tour_id + '&pid=' + placard.id + '" class="placard-row-item">' + placard.title + '</a>' + '</span>' + '<div class="views-field views-field-nothing placard-info placard-info-' + placard.id + '" style="display: none;">' + '<div class="placard-image">' + '<img typeof="foaf:Image" src="' + placard.image_url + '">' + '</div>' + '<div class="placard-body">' + placard.description + '</div>' + '</div></li>';
+	    var image = placard.image_url ? '<img typeof="foaf:Image" src="' + placard.image_url + '">' : '';
+	    var placard_item_html = '<li class="views-row">' + '<span class="views-field views-field-title-1 placard-row">' + '<a href="#tid=' + tour_id + '&pid=' + placard.id + '" class="placard-row-item">' + placard.title + '</a>' + '</span>' + '<div class="views-field views-field-nothing placard-info placard-info-' + placard.id + '" style="display: none;">' + '<div class="placard-image">' + image + '</div>' + '<div class="placard-body">' + placard.description + '</div>' + '</div></li>';
 	    placard_items.push(placard_item_html);
 	  });
 
