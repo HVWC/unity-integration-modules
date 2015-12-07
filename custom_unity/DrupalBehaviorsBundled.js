@@ -872,6 +872,7 @@
 	      }).then(function (placards) {
 	        tour.placards = placards;
 	        delete tour.placard_ids;
+	        tour = formatTour(tour);
 	        deferred.resolve(tour);
 	      }).catch(function (error) {
 	        console.log('Error retrieving tour for tour_id: ' + tour_id);
@@ -1006,22 +1007,7 @@
 	        var query_ids = placard_ids.join('+');
 	        this.request('/unity-services/specific-placard', { id: query_ids }).then(function (placards) {
 	          placards = placards.map(function (placard) {
-	            var layer = placard.layer && placard.layer.value ? placard.layer.value : '';
-	            var image_url = !placard.field_image || isEmptyArray(placard.field_image) ? '' : placard.field_image;
-	            return {
-	              id: Number(placard.id),
-	              title: placard.title,
-	              description: placard.description,
-	              image_url: image_url,
-	              location: {
-	                latitude: Number(placard.location.latitude),
-	                longitude: Number(placard.location.longitude),
-	                country: placard.location.country,
-	                elevation: Number(placard.elevation),
-	                orientation: Number(placard.orientation)
-	              },
-	              layer: layer
-	            };
+	            return formatPlacard(placard);
 	          });
 
 	          deferred.resolve(placards);
@@ -1109,16 +1095,55 @@
 	 */
 	var formatEnvironment = function formatEnvironment(environment_data) {
 	  return {
-	    id: environment_data.id,
-	    title: environment_data.title,
-	    description: environment_data.description,
-	    starting_location: {
-	      latitude: Number(environment_data.starting_location.latitude),
-	      longitude: Number(environment_data.starting_location.longitude),
-	      orientation: environment_data.starting_location.orientation,
-	      elevation: environment_data.starting_location.elevation
-	    }
+	    id: Number(environment_data.id),
+	    title: formatString(environment_data.title),
+	    description: formatString(environment_data.description),
+	    starting_location: formatLocation(environment_data.starting_location)
 	  };
+	};
+
+	var formatTour = function formatTour(tour) {
+	  return {
+	    id: formatNumber(tour.id),
+	    title: formatString(tour.title),
+	    description: formatString(tour.description),
+	    unity_binary: formatString(tour.unity_binary),
+	    placards: tour.placards
+	  };
+	};
+	var formatPlacard = function formatPlacard(placard) {
+	  var layer = placard.layer && placard.layer.value ? String(placard.layer.value) : '';
+	  var image_url = !placard.field_image || isEmptyArray(placard.field_image) ? '' : String(placard.field_image);
+	  return {
+	    id: formatNumber(placard.id),
+	    title: placard.title,
+	    description: placard.description,
+	    image_url: image_url,
+	    location: formatLocation(placard.location),
+	    layer: layer
+	  };
+	};
+
+	var formatLocation = function formatLocation(location) {
+	  return {
+	    latitude: formatNumber(location.latitude),
+	    longitude: formatNumber(location.longitude),
+	    orientation: formatNumber(location.orientation),
+	    elevation: formatNumber(location.elevation)
+	  };
+	};
+
+	var formatNumber = function formatNumber(mixed) {
+	  var number = mixed ? Number(mixed) : 0;
+	  if (isNaN(number)) {
+	    console.warn('Received invalid number \'' + mixed + '\'');
+	    return 0;
+	  }
+	  return number;
+	};
+
+	var formatString = function formatString(mixed) {
+	  return mixed ? String(mixed) : '';
 	};
 
 	/**
