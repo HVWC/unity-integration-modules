@@ -105,7 +105,7 @@ export default class DrupalUnityInterface {
 
       this.ensurePromise(result)
       .then((resolved_value) => {
-        this.sendMessageToUnity(game_object, game_object_method, JSON.stringify(resolved_value));
+        this.sendMessageToUnity(game_object, game_object_method, resolved_value);
       });
     }
   }

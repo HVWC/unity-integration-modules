@@ -272,7 +272,7 @@ $ = window.jQuery;
   }
 
   function set_placard_display_title(title) {
-    $('.placard-title').text(title);
+    $('.placard-title').html(title);
     $('.placard-title-dropdown-container .placard-title').show();
   }
 
