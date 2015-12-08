@@ -14,8 +14,12 @@ import Q from 'q';
  *
  */
 export default class DrupalUnityInterface {
+  /**
+   * @private
+   */
   constructor(options = {}) {
     let default_options = {getWebPlayer: this.defaultGetWebPlayer};
+    /** @private */
     this.options = Object.assign({}, default_options, options);
 
     if (typeof(this.options.getWebPlayer) !== 'function') {
@@ -110,12 +114,12 @@ export default class DrupalUnityInterface {
     }
   }
 
-  /*
-   *  @private
-   *  Ensure that a value is formatted as a promise.
+  /**
+   * @private
+   * Ensure that a value is formatted as a promise.
    *
-   *  In other words, if value is a promise, return it
-   *  else, return a promise already resolved to that value
+   * In other words, if value is a promise, return it
+   * else, return a promise already resolved to that value
    */
   ensurePromise(value) {
     if (value && value.then) {

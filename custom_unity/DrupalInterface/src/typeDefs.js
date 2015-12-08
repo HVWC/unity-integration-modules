@@ -17,6 +17,8 @@
  * @property {string} title  the title of the placard i.e. "The Roman Colosseum"
  * @property {string} description  a description of the placard i.e. "The Roman Colosseum hosted blood sport as well as organic farmer's markets"
  * @property {Location} location the location where the placard exists
+ * @property {string} layer the name of the layer to turn on when the placard is selected
+ * @property {string} image_url the name of the image associated with the placard
  *
  */
 

@@ -11,8 +11,8 @@ const DRUPAL_INTERFACE_FAIL    = 'DRUPAL_INTERFACE_FAIL';
  * Most methods are asynchronous and return Promises {@see https://promisesaplus.com} 
  * The return values listed below are the values to which the promises resolve
  *
- * __Note: If calling this interface from within Unity the first two arguments will always
- * be gameObject (string) and methodName (string) - and then any additional arguments, which should be first passed to JSON.stringify__
+ * __Note: If calling this interface from within Unity you should use {@link DrupalUnityInterface} instead. The first two arguments will always
+ * be gameObject (string) and methodName (string) - and then one additional argument, which should be first passed to JSON.stringify__
  *
  * i.e.  getTour('myGameObject', 'myCallbackMethod', 7);
  * returns the tour with an id of 7
@@ -32,8 +32,11 @@ export default class DrupalInterface {
     let default_config = {
 
     }
+    /** @private */
     this.config = Object.assign(default_config, config);
     this.config.ajax_domain || (this.config.ajax_domain = getCurrentDomain());
+
+    /** @private */
     this.event_listeners = {};
     
   }
@@ -52,6 +55,10 @@ export default class DrupalInterface {
     this.event_listeners[event_name].push(callback); 
   }
 
+  /**
+   * @param {string} event_name - The name of the event to trigger i.e. placard_selected
+   * @param arg - a single argument to pass to the event handlers
+   */
   triggerEvent(event_name, arg) {
     this.event_listeners[event_name] || (this.event_listeners[event_name] = []);
     this.event_listeners[event_name].map((callback) => {
@@ -193,6 +200,9 @@ export default class DrupalInterface {
   _tourGetPlacard(placard_id) {
     return this.placards.filter((placard) => { return Number(placard.id) == Number(placard_id); }).pop();
   }
+  /**
+   * @private
+   */
   getEnvironmentTours(environment_id) {
 
     var environment_tours;
@@ -231,7 +241,7 @@ export default class DrupalInterface {
     });
 
   }
-  /*
+  /**
    * @private
    * {array} objs - an array of tours or placards with an 'id' property 
    * {number} id - the relevant id to select
@@ -240,6 +250,9 @@ export default class DrupalInterface {
   getObjectById(objs, id) {
     return objs.filter((obj) => obj.id == id).pop();
   }
+  /**
+   * @private
+   */
   getAllPlacardIdsFromTours(tours) {
     var placard_ids = {}; 
     tours.map((tour) => {
@@ -250,6 +263,11 @@ export default class DrupalInterface {
     return Object.keys(placard_ids).map(placard_id => Number(placard_id));
   }
 
+  /**
+   * @param {number[]} tour_ids an array of tour ids
+   * @return {Tour[]} tours - returns promise that resolves to an array of tours
+   *
+   */
   getTours(tour_ids) {
     var deferred = Q.defer();
 
