@@ -412,30 +412,6 @@ let formatTour = function(tour) {
   }
 }
 
-let unityHack = function(env) {
-  try {
-    env.tours = env.tours.map((tour) => {
-      tour.placards = convertArrayToObject(tour.placards);
-      return tour;
-    });
-  }
-  catch (e) {
-    console.log(e);
-  }
-  return env;
-}
-window.unityHack = unityHack;
-
-let convertArrayToObject = function(arr) {
-  let obj = {};
-  for (let key in arr) {
-    obj[key] = arr[key];
-  }
-  return obj;
-}
-window.convertArrayToObject = convertArrayToObject;
-
-
 let formatPlacard = function(placard) {
   let layer = placard.layer && placard.layer.value ? String(placard.layer.value) : '';
   let image_url = (!placard.field_image || isEmptyArray(placard.field_image)) ? '' : String(placard.field_image);
@@ -443,9 +419,9 @@ let formatPlacard = function(placard) {
     id: formatNumber(placard.id),
     title: placard.title,
     description: placard.description,
-    //image_url,
+    image_url,
     location: formatLocation(placard.location),
-    //layer
+    layer
     }
 }
 
