@@ -10,7 +10,7 @@
 function unity_content_types_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'body'
+  // Exported field_base: 'body'.
   $field_bases['body'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -31,29 +31,7 @@ function unity_content_types_field_default_field_bases() {
     'type' => 'text_with_summary',
   );
 
-  // Exported field_base: 'field_collection_placards'
-  $field_bases['field_collection_placards'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_collection_placards',
-    'indexes' => array(
-      'revision_id' => array(
-        0 => 'revision_id',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'field_collection',
-    'settings' => array(
-      'hide_blank_items' => TRUE,
-      'path' => '',
-    ),
-    'translatable' => 0,
-    'type' => 'field_collection',
-  );
-
-  // Exported field_base: 'field_collection_tours'
+  // Exported field_base: 'field_collection_tours'.
   $field_bases['field_collection_tours'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -75,7 +53,7 @@ function unity_content_types_field_default_field_bases() {
     'type' => 'field_collection',
   );
 
-  // Exported field_base: 'field_elevation'
+  // Exported field_base: 'field_elevation'.
   $field_bases['field_elevation'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -96,7 +74,7 @@ function unity_content_types_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_layer'
+  // Exported field_base: 'field_layer'.
   $field_bases['field_layer'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -117,7 +95,26 @@ function unity_content_types_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_placard_image'
+  // Exported field_base: 'field_orientation'.
+  $field_bases['field_orientation'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_orientation',
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(
+      'decimal_separator' => '.',
+      'precision' => 10,
+      'scale' => 5,
+    ),
+    'translatable' => 0,
+    'type' => 'number_decimal',
+  );
+
+  // Exported field_base: 'field_placard_image'.
   $field_bases['field_placard_image'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -139,7 +136,7 @@ function unity_content_types_field_default_field_bases() {
     'type' => 'image',
   );
 
-  // Exported field_base: 'field_placard_location'
+  // Exported field_base: 'field_placard_location'.
   $field_bases['field_placard_location'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -223,91 +220,7 @@ function unity_content_types_field_default_field_bases() {
     'type' => 'location',
   );
 
-  // Exported field_base: 'field_placard_orientation'
-  $field_bases['field_placard_orientation'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_placard_orientation',
-    'indexes' => array(
-      'lid' => array(
-        0 => 'lid',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'location_cck',
-    'settings' => array(
-      'gmap_macro' => '[gmap ]',
-      'gmap_marker' => 'drupal',
-      'location_settings' => array(
-        'display' => array(
-          'hide' => array(
-            'additional' => 'additional',
-            'city' => 'city',
-            'coords' => 0,
-            'country' => 'country',
-            'country_name' => 'country_name',
-            'locpick' => 0,
-            'map_link' => 'map_link',
-            'name' => 'name',
-            'postal_code' => 'postal_code',
-            'province' => 'province',
-            'province_name' => 'province_name',
-            'street' => 'street',
-          ),
-        ),
-        'form' => array(
-          'fields' => array(
-            'additional' => array(
-              'collect' => 0,
-              'default' => '',
-              'weight' => 6,
-            ),
-            'city' => array(
-              'collect' => 0,
-              'default' => '',
-              'weight' => 8,
-            ),
-            'country' => array(
-              'collect' => 1,
-              'default' => 'us',
-              'weight' => 14,
-            ),
-            'locpick' => array(
-              'collect' => 1,
-              'weight' => 20,
-            ),
-            'name' => array(
-              'collect' => 0,
-              'default' => '',
-              'weight' => 2,
-            ),
-            'postal_code' => array(
-              'collect' => 0,
-              'default' => '',
-              'weight' => 12,
-            ),
-            'province' => array(
-              'collect' => 0,
-              'default' => '',
-              'weight' => 10,
-              'widget' => 'autocomplete',
-            ),
-            'street' => array(
-              'collect' => 0,
-              'default' => '',
-              'weight' => 4,
-            ),
-          ),
-        ),
-      ),
-    ),
-    'translatable' => 0,
-    'type' => 'location',
-  );
-
-  // Exported field_base: 'field_placard_tags'
+  // Exported field_base: 'field_placard_tags'.
   $field_bases['field_placard_tags'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -333,7 +246,7 @@ function unity_content_types_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_placards'
+  // Exported field_base: 'field_placards'.
   $field_bases['field_placards'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -367,7 +280,7 @@ function unity_content_types_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_starting_location'
+  // Exported field_base: 'field_starting_location'.
   $field_bases['field_starting_location'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -451,7 +364,7 @@ function unity_content_types_field_default_field_bases() {
     'type' => 'location',
   );
 
-  // Exported field_base: 'field_tour'
+  // Exported field_base: 'field_tour'.
   $field_bases['field_tour'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -488,7 +401,7 @@ function unity_content_types_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_unity_binary'
+  // Exported field_base: 'field_unity_binary'.
   $field_bases['field_unity_binary'] = array(
     'active' => 1,
     'cardinality' => 1,

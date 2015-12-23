@@ -96,7 +96,7 @@ function unity_services_views_views_default_views() {
     'skip_safe' => 0,
     'skip_empty_values' => 0,
   );
-  /* Field: Field: Placards */
+  /* Field: Content: Placards */
   $handler->display->display_options['fields']['field_placards']['id'] = 'field_placards';
   $handler->display->display_options['fields']['field_placards']['table'] = 'field_data_field_placards';
   $handler->display->display_options['fields']['field_placards']['field'] = 'field_placards';
@@ -184,7 +184,7 @@ function unity_services_views_views_default_views() {
   $handler->display->display_options['sorts']['created']['table'] = 'node';
   $handler->display->display_options['sorts']['created']['field'] = 'created';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
-  /* Sort criterion: Field: Placards (field_placards:delta) */
+  /* Sort criterion: Content: Placards (field_placards:delta) */
   $handler->display->display_options['sorts']['delta']['id'] = 'delta';
   $handler->display->display_options['sorts']['delta']['table'] = 'field_data_field_placards';
   $handler->display->display_options['sorts']['delta']['field'] = 'delta';
@@ -264,16 +264,6 @@ function unity_services_views_views_default_views() {
     'skip_safe' => 0,
     'skip_empty_values' => 0,
   );
-  /* Field: Content: Placard Orientation */
-  $handler->display->display_options['fields']['field_placard_orientation']['id'] = 'field_placard_orientation';
-  $handler->display->display_options['fields']['field_placard_orientation']['table'] = 'field_data_field_placard_orientation';
-  $handler->display->display_options['fields']['field_placard_orientation']['field'] = 'field_placard_orientation';
-  $handler->display->display_options['fields']['field_placard_orientation']['label'] = 'placard_orientation';
-  $handler->display->display_options['fields']['field_placard_orientation']['type'] = 'services';
-  $handler->display->display_options['fields']['field_placard_orientation']['settings'] = array(
-    'skip_safe' => 0,
-    'skip_empty_values' => 0,
-  );
   /* Field: Content: Layer */
   $handler->display->display_options['fields']['field_layer']['id'] = 'field_layer';
   $handler->display->display_options['fields']['field_layer']['table'] = 'field_data_field_layer';
@@ -315,6 +305,18 @@ function unity_services_views_views_default_views() {
   $handler->display->display_options['fields']['field_elevation']['type'] = 'number_integer';
   $handler->display->display_options['fields']['field_elevation']['settings'] = array(
     'thousand_separator' => '',
+    'prefix_suffix' => 0,
+  );
+  /* Field: Content: Orientation */
+  $handler->display->display_options['fields']['field_orientation']['id'] = 'field_orientation';
+  $handler->display->display_options['fields']['field_orientation']['table'] = 'field_data_field_orientation';
+  $handler->display->display_options['fields']['field_orientation']['field'] = 'field_orientation';
+  $handler->display->display_options['fields']['field_orientation']['label'] = 'orientation';
+  $handler->display->display_options['fields']['field_orientation']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_orientation']['settings'] = array(
+    'thousand_separator' => '',
+    'decimal_separator' => '.',
+    'scale' => '5',
     'prefix_suffix' => 0,
   );
   $handler->display->display_options['defaults']['sorts'] = FALSE;
@@ -400,17 +402,12 @@ function unity_services_views_views_default_views() {
     'skip_safe' => 0,
     'skip_empty_values' => 1,
   );
-  /* Field: Content: Placard Orientation */
+  /* Field: Broken/missing handler */
   $handler->display->display_options['fields']['field_placard_orientation']['id'] = 'field_placard_orientation';
   $handler->display->display_options['fields']['field_placard_orientation']['table'] = 'field_data_field_placard_orientation';
   $handler->display->display_options['fields']['field_placard_orientation']['field'] = 'field_placard_orientation';
   $handler->display->display_options['fields']['field_placard_orientation']['relationship'] = 'reverse_field_placard_tags_node';
   $handler->display->display_options['fields']['field_placard_orientation']['label'] = 'placard_orientation';
-  $handler->display->display_options['fields']['field_placard_orientation']['type'] = 'services';
-  $handler->display->display_options['fields']['field_placard_orientation']['settings'] = array(
-    'skip_safe' => 0,
-    'skip_empty_values' => 1,
-  );
   /* Field: Content: Image */
   $handler->display->display_options['fields']['field_placard_image']['id'] = 'field_placard_image';
   $handler->display->display_options['fields']['field_placard_image']['table'] = 'field_data_field_placard_image';
@@ -505,7 +502,7 @@ function unity_services_views_views_default_views() {
   $handler->display->display_options['fields']['body']['table'] = 'field_data_body';
   $handler->display->display_options['fields']['body']['field'] = 'body';
   $handler->display->display_options['fields']['body']['label'] = 'description';
-  /* Field: Field: Placards */
+  /* Field: Content: Placards */
   $handler->display->display_options['fields']['field_placards']['id'] = 'field_placards';
   $handler->display->display_options['fields']['field_placards']['table'] = 'field_data_field_placards';
   $handler->display->display_options['fields']['field_placards']['field'] = 'field_placards';
@@ -589,11 +586,10 @@ function unity_services_views_views_default_views() {
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
-  /* Relationship: Content: Placards (field_collection_placards) */
+  /* Relationship: Broken/missing handler */
   $handler->display->display_options['relationships']['field_collection_placards_value']['id'] = 'field_collection_placards_value';
   $handler->display->display_options['relationships']['field_collection_placards_value']['table'] = 'field_data_field_collection_placards';
   $handler->display->display_options['relationships']['field_collection_placards_value']['field'] = 'field_collection_placards_value';
-  $handler->display->display_options['relationships']['field_collection_placards_value']['delta'] = '-1';
   /* Field: Content: Nid */
   $handler->display->display_options['fields']['nid']['id'] = 'nid';
   $handler->display->display_options['fields']['nid']['table'] = 'node';
@@ -623,52 +619,22 @@ function unity_services_views_views_default_views() {
     'skip_safe' => 1,
     'skip_empty_values' => 1,
   );
-  /* Field: Content: Placard Orientation */
-  $handler->display->display_options['fields']['field_placard_orientation']['id'] = 'field_placard_orientation';
-  $handler->display->display_options['fields']['field_placard_orientation']['table'] = 'field_data_field_placard_orientation';
-  $handler->display->display_options['fields']['field_placard_orientation']['field'] = 'field_placard_orientation';
-  $handler->display->display_options['fields']['field_placard_orientation']['label'] = 'placard_orientation';
-  $handler->display->display_options['fields']['field_placard_orientation']['type'] = 'services';
-  $handler->display->display_options['fields']['field_placard_orientation']['settings'] = array(
-    'skip_safe' => 0,
-    'skip_empty_values' => 0,
+  /* Field: Content: Orientation */
+  $handler->display->display_options['fields']['field_orientation']['id'] = 'field_orientation';
+  $handler->display->display_options['fields']['field_orientation']['table'] = 'field_data_field_orientation';
+  $handler->display->display_options['fields']['field_orientation']['field'] = 'field_orientation';
+  $handler->display->display_options['fields']['field_orientation']['label'] = 'orientation';
+  $handler->display->display_options['fields']['field_orientation']['settings'] = array(
+    'thousand_separator' => '',
+    'decimal_separator' => '.',
+    'scale' => '2',
+    'prefix_suffix' => 1,
   );
-  /* Field: Field: Placards */
-  $handler->display->display_options['fields']['field_placards']['id'] = 'field_placards';
-  $handler->display->display_options['fields']['field_placards']['table'] = 'field_data_field_placards';
-  $handler->display->display_options['fields']['field_placards']['field'] = 'field_placards';
-  $handler->display->display_options['fields']['field_placards']['relationship'] = 'field_collection_placards_value';
-  $handler->display->display_options['fields']['field_placards']['label'] = 'placards';
-  $handler->display->display_options['fields']['field_placards']['type'] = 'entityreference_entity_id';
-  $handler->display->display_options['fields']['field_placards']['settings'] = array(
-    'link' => 0,
-  );
-  $handler->display->display_options['fields']['field_placards']['delta_offset'] = '0';
-  /* Field: Field collection item: Unity Binary */
-  $handler->display->display_options['fields']['field_unity_binary']['id'] = 'field_unity_binary';
-  $handler->display->display_options['fields']['field_unity_binary']['table'] = 'field_data_field_unity_binary';
-  $handler->display->display_options['fields']['field_unity_binary']['field'] = 'field_unity_binary';
-  $handler->display->display_options['fields']['field_unity_binary']['relationship'] = 'field_collection_placards_value';
-  $handler->display->display_options['fields']['field_unity_binary']['label'] = 'placard_unity_binary';
-  $handler->display->display_options['fields']['field_unity_binary']['click_sort_column'] = 'fid';
-  $handler->display->display_options['fields']['field_unity_binary']['type'] = 'file_url_plain';
-  /* Field: Content: Placard Tags */
-  $handler->display->display_options['fields']['field_placard_tags']['id'] = 'field_placard_tags';
-  $handler->display->display_options['fields']['field_placard_tags']['table'] = 'field_data_field_placard_tags';
-  $handler->display->display_options['fields']['field_placard_tags']['field'] = 'field_placard_tags';
-  $handler->display->display_options['fields']['field_placard_tags']['label'] = 'tags';
-  $handler->display->display_options['fields']['field_placard_tags']['type'] = 'services';
-  $handler->display->display_options['fields']['field_placard_tags']['settings'] = array(
-    'skip_safe' => 0,
-    'skip_empty_values' => 0,
-  );
-  $handler->display->display_options['fields']['field_placard_tags']['delta_offset'] = '0';
-  /* Field: Content: Nid */
-  $handler->display->display_options['fields']['nid_1']['id'] = 'nid_1';
-  $handler->display->display_options['fields']['nid_1']['table'] = 'node';
-  $handler->display->display_options['fields']['nid_1']['field'] = 'nid';
-  $handler->display->display_options['fields']['nid_1']['relationship'] = 'field_collection_tours_node';
-  $handler->display->display_options['fields']['nid_1']['label'] = 'tour_ids';
+  /* Field: Content: Elevation */
+  $handler->display->display_options['fields']['field_elevation']['id'] = 'field_elevation';
+  $handler->display->display_options['fields']['field_elevation']['table'] = 'field_data_field_elevation';
+  $handler->display->display_options['fields']['field_elevation']['field'] = 'field_elevation';
+  $handler->display->display_options['fields']['field_elevation']['label'] = 'elevation';
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -701,11 +667,6 @@ function unity_services_views_views_default_views() {
   /* Display: Services */
   $handler = $view->new_display('services', 'Services', 'services_1');
   $handler->display->display_options['defaults']['relationships'] = FALSE;
-  /* Relationship: Content: Placards (field_collection_placards) */
-  $handler->display->display_options['relationships']['field_collection_placards_value']['id'] = 'field_collection_placards_value';
-  $handler->display->display_options['relationships']['field_collection_placards_value']['table'] = 'field_data_field_collection_placards';
-  $handler->display->display_options['relationships']['field_collection_placards_value']['field'] = 'field_collection_placards_value';
-  $handler->display->display_options['relationships']['field_collection_placards_value']['delta'] = '-1';
   /* Relationship: Content: Tours (field_collection_tours) */
   $handler->display->display_options['relationships']['field_collection_tours_value']['id'] = 'field_collection_tours_value';
   $handler->display->display_options['relationships']['field_collection_tours_value']['table'] = 'field_data_field_collection_tours';

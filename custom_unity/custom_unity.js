@@ -219,14 +219,19 @@ $ = window.jQuery;
     var tour_items = [];
 
     $.each(tours, function(key, tour_value) {
-      var default_placard_id = tour_value.placards[0].id;
-      var tour_html = '<div class="tour-row tour-row-' + tour_value.id + '">' +
-        '<div class="tour-row-item">' +
-          '<h3><a href="#tid=' + tour_value.id + '&pid=' + default_placard_id + '" class="tour-link-item">' + tour_value.title + '</a></h3>'+
-        '</div>' +
-        '<div class="view-information-window"></div>' +
-        '</div>';
-      tour_items.push(tour_html);
+      if (tour_value.placards[0]) {
+        var default_placard_id = tour_value.placards[0].id;
+        var tour_html = '<div class="tour-row tour-row-' + tour_value.id + '">' +
+          '<div class="tour-row-item">' +
+            '<h3><a href="#tid=' + tour_value.id + '&pid=' + default_placard_id + '" class="tour-link-item">' + tour_value.title + '</a></h3>'+
+          '</div>' +
+          '<div class="view-information-window"></div>' +
+          '</div>';
+        tour_items.push(tour_html);
+      }
+      else {
+        console.warn('Your tour has no placards associated with it');
+      }
     });
 
     return tour_items.join('');
@@ -237,18 +242,23 @@ $ = window.jQuery;
     var drupal_interface = window.DrupalUnityInterface.DrupalInterface;
 
       $.each(placards, function(index, placard) {
-        var image = placard.image_url ? '<img typeof="foaf:Image" src="' + placard.image_url + '">' : '';
-        var placard_item_html = '<li class="views-row">' +
-          '<span class="views-field views-field-title-1 placard-row">' +
-            '<a href="#tid='+ tour_id + '&pid=' + placard.id + '" class="placard-row-item">' + placard.title + '</a>' +
-          '</span>' +
-          '<div class="views-field views-field-nothing placard-info placard-info-' + placard.id + '" style="display: none;">' +
-            '<div class="placard-image">' +
-             image + 
-            '</div>' +
-            '<div class="placard-body">' + placard.description + '</div>' +
-          '</div></li>';    
-        placard_items.push(placard_item_html);
+        try {
+          var image = placard.image_url ? '<img typeof="foaf:Image" src="' + placard.image_url + '">' : '';
+          var placard_item_html = '<li class="views-row">' +
+            '<span class="views-field views-field-title-1 placard-row">' +
+              '<a href="#tid='+ tour_id + '&pid=' + placard.id + '" class="placard-row-item">' + placard.title + '</a>' +
+            '</span>' +
+            '<div class="views-field views-field-nothing placard-info placard-info-' + placard.id + '" style="display: none;">' +
+              '<div class="placard-image">' +
+               image + 
+              '</div>' +
+              '<div class="placard-body">' + placard.description + '</div>' +
+            '</div></li>';    
+          placard_items.push(placard_item_html);
+        } 
+        catch (e) {
+          console.log(e);
+        }
       });
       
       var placard_list = '<ul class="placard-list">' + placard_items.join('') + '</ul>';
