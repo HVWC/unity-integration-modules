@@ -1123,11 +1123,14 @@
 	 * @private
 	 */
 	var formatEnvironment = function formatEnvironment(environment_data) {
+	  var starting_location = environment_data.starting_location;
+	  starting_location.elevation = environment_data.elevation;
+	  starting_location.orientation = environment_data.orientation;
 	  return {
 	    id: Number(environment_data.id),
 	    title: formatString(environment_data.title),
 	    description: formatString(environment_data.description),
-	    starting_location: formatLocation(environment_data.starting_location)
+	    starting_location: formatLocation(starting_location)
 	  };
 	};
 
@@ -1141,41 +1144,22 @@
 	  };
 	};
 
-	var unityHack = function unityHack(env) {
-	  try {
-	    env.tours = env.tours.map(function (tour) {
-	      tour.placards = convertArrayToObject(tour.placards);
-	      return tour;
-	    });
-	  } catch (e) {
-	    console.log(e);
-	  }
-	  return env;
-	};
-	window.unityHack = unityHack;
-
-	var convertArrayToObject = function convertArrayToObject(arr) {
-	  var obj = {};
-	  for (var key in arr) {
-	    obj[key] = arr[key];
-	  }
-	  return obj;
-	};
-	window.convertArrayToObject = convertArrayToObject;
-
 	var formatPlacard = function formatPlacard(placard) {
 	  var layer = placard.layer && placard.layer.value ? String(placard.layer.value) : '';
 	  var image_url = !placard.field_image || isEmptyArray(placard.field_image) ? '' : String(placard.field_image);
+	  var location = placard.location;
+	  location.elevation = placard.elevation;
+	  location.orientation = placard.orientation;
 	  return {
 	    id: formatNumber(placard.id),
 	    title: placard.title,
 	    description: placard.description,
-	    //image_url,
-	    location: formatLocation(placard.location)
+	    image_url: image_url,
+	    location: formatLocation(location),
+	    layer: layer
 	  };
 	};
 
-	//layer
 	var formatLocation = function formatLocation(location) {
 	  return {
 	    latitude: formatNumber(location.latitude),

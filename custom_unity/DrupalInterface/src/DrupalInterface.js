@@ -394,11 +394,14 @@ let getCurrentDomain = function() {
  * @private
  */
 let formatEnvironment = function(environment_data) {
+  let starting_location = environment_data.starting_location;
+  starting_location.elevation = environment_data.elevation;
+  starting_location.orientation = environment_data.orientation;
   return {
     id: Number(environment_data.id),
     title: formatString(environment_data.title),
     description: formatString(environment_data.description),
-    starting_location: formatLocation(environment_data.starting_location)
+    starting_location: formatLocation(starting_location)
   }
 }
 
@@ -415,14 +418,17 @@ let formatTour = function(tour) {
 let formatPlacard = function(placard) {
   let layer = placard.layer && placard.layer.value ? String(placard.layer.value) : '';
   let image_url = (!placard.field_image || isEmptyArray(placard.field_image)) ? '' : String(placard.field_image);
+  let location = placard.location;
+  location.elevation = placard.elevation;
+  location.orientation = placard.orientation;
   return {
     id: formatNumber(placard.id),
     title: placard.title,
     description: placard.description,
     image_url,
-    location: formatLocation(placard.location),
+    location: formatLocation(location),
     layer
-    }
+  }
 }
 
 let formatLocation = function(location) {
