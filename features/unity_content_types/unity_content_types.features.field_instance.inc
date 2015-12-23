@@ -11,103 +11,7 @@ function unity_content_types_field_default_field_instances() {
   $field_instances = array();
 
   // Exported field_instance:
-  // 'field_collection_item-field_collection_placards-field_placards'
-  $field_instances['field_collection_item-field_collection_placards-field_placards'] = array(
-    'bundle' => 'field_collection_placards',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'field_collection_item',
-    'field_name' => 'field_placards',
-    'label' => 'Placards',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'entityreference',
-      'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
-      ),
-      'type' => 'entityreference_autocomplete',
-      'weight' => 1,
-    ),
-  );
-
-  // Exported field_instance:
-  // 'field_collection_item-field_collection_placards-field_unity_binary'
-  $field_instances['field_collection_item-field_collection_placards-field_unity_binary'] = array(
-    'bundle' => 'field_collection_placards',
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'file',
-        'settings' => array(),
-        'type' => 'file_default',
-        'weight' => 1,
-      ),
-    ),
-    'entity_type' => 'field_collection_item',
-    'field_name' => 'field_unity_binary',
-    'label' => 'Unity Binary',
-    'required' => 0,
-    'settings' => array(
-      'description_field' => 0,
-      'file_directory' => '',
-      'file_extensions' => 'unity3d',
-      'max_filesize' => '',
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'file',
-      'settings' => array(
-        'filefield_sources' => array(
-          'filefield_sources' => array(
-            'attach' => 0,
-            'clipboard' => 0,
-            'reference' => 'reference',
-            'remote' => 'remote',
-            'remotefile' => 'remotefile',
-            'upload' => 'upload',
-          ),
-          'source_attach' => array(
-            'absolute' => 0,
-            'attach_mode' => 'move',
-            'path' => 'file_attach',
-          ),
-          'source_imce' => array(
-            'imce_mode' => 0,
-          ),
-          'source_reference' => array(
-            'autocomplete' => 0,
-          ),
-        ),
-        'progress_indicator' => 'throbber',
-      ),
-      'type' => 'file_generic',
-      'weight' => 0,
-    ),
-  );
-
-  // Exported field_instance:
-  // 'field_collection_item-field_collection_tours-field_tour'
+  // 'field_collection_item-field_collection_tours-field_tour'.
   $field_instances['field_collection_item-field_collection_tours-field_tour'] = array(
     'bundle' => 'field_collection_tours',
     'default_value' => NULL,
@@ -141,7 +45,7 @@ function unity_content_types_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_collection_tours-field_unity_binary'
+  // 'field_collection_item-field_collection_tours-field_unity_binary'.
   $field_instances['field_collection_item-field_collection_tours-field_unity_binary'] = array(
     'bundle' => 'field_collection_tours',
     'deleted' => 0,
@@ -198,7 +102,7 @@ function unity_content_types_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-placard-body'
+  // Exported field_instance: 'node-placard-body'.
   $field_instances['node-placard-body'] = array(
     'bundle' => 'placard',
     'default_value' => NULL,
@@ -238,11 +142,11 @@ function unity_content_types_field_default_field_instances() {
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
-      'weight' => 1,
+      'weight' => 2,
     ),
   );
 
-  // Exported field_instance: 'node-placard-field_elevation'
+  // Exported field_instance: 'node-placard-field_elevation'.
   $field_instances['node-placard-field_elevation'] = array(
     'bundle' => 'placard',
     'default_value' => NULL,
@@ -278,11 +182,11 @@ function unity_content_types_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 2,
+      'weight' => 4,
     ),
   );
 
-  // Exported field_instance: 'node-placard-field_layer'
+  // Exported field_instance: 'node-placard-field_layer'.
   $field_instances['node-placard-field_layer'] = array(
     'bundle' => 'placard',
     'default_value' => NULL,
@@ -318,11 +222,61 @@ function unity_content_types_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
+      'weight' => 6,
+    ),
+  );
+
+  // Exported field_instance: 'node-placard-field_orientation'.
+  $field_instances['node-placard-field_orientation'] = array(
+    'bundle' => 'placard',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => 'The orientation of the user (where the user is looking) in degrees 0 to 360',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 2,
+          'thousand_separator' => '',
+        ),
+        'type' => 'number_decimal',
+        'weight' => 7,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_orientation',
+    'label' => 'Orientation',
+    'required' => 0,
+    'settings' => array(
+      'max' => 360,
+      'min' => 0,
+      'prefix' => '',
+      'suffix' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
       'weight' => 5,
     ),
   );
 
-  // Exported field_instance: 'node-placard-field_placard_image'
+  // Exported field_instance: 'node-placard-field_placard_image'.
   $field_instances['node-placard-field_placard_image'] = array(
     'bundle' => 'placard',
     'deleted' => 0,
@@ -376,11 +330,11 @@ function unity_content_types_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'media_generic',
-      'weight' => 7,
+      'weight' => 1,
     ),
   );
 
-  // Exported field_instance: 'node-placard-field_placard_location'
+  // Exported field_instance: 'node-placard-field_placard_location'.
   $field_instances['node-placard-field_placard_location'] = array(
     'bundle' => 'placard',
     'default_value' => array(
@@ -518,145 +472,7 @@ function unity_content_types_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-placard-field_placard_orientation'
-  $field_instances['node-placard-field_placard_orientation'] = array(
-    'bundle' => 'placard',
-    'default_value' => array(
-      0 => array(
-        'location_settings' => array(
-          'display' => array(
-            'hide' => array(
-              'additional' => 'additional',
-              'city' => 'city',
-              'coords' => 0,
-              'country' => 'country',
-              'country_name' => 'country_name',
-              'locpick' => 0,
-              'map_link' => 'map_link',
-              'name' => 'name',
-              'postal_code' => 'postal_code',
-              'province' => 'province',
-              'province_name' => 'province_name',
-              'street' => 'street',
-            ),
-          ),
-          'form' => array(
-            'fields' => array(
-              'additional' => array(
-                'collect' => 0,
-                'default' => '',
-                'weight' => 6,
-              ),
-              'city' => array(
-                'collect' => 0,
-                'default' => '',
-                'weight' => 8,
-              ),
-              'country' => array(
-                '#parents' => array(
-                  0 => 'field_placard_orientation',
-                  1 => 'und',
-                  2 => 0,
-                ),
-                'collect' => 1,
-                'default' => 'us',
-                'weight' => 14,
-              ),
-              'delete_location' => array(
-                'default' => FALSE,
-                'nodiff' => TRUE,
-              ),
-              'is_primary' => array(
-                'default' => 0,
-              ),
-              'latitude' => array(
-                'default' => 0,
-              ),
-              'lid' => array(
-                'default' => FALSE,
-              ),
-              'locpick' => array(
-                '#parents' => array(
-                  0 => 'field_placard_orientation',
-                  1 => 'und',
-                  2 => 0,
-                ),
-                'collect' => 1,
-                'default' => FALSE,
-                'nodiff' => TRUE,
-                'weight' => 20,
-              ),
-              'longitude' => array(
-                'default' => 0,
-              ),
-              'name' => array(
-                'collect' => 0,
-                'default' => '',
-                'weight' => 2,
-              ),
-              'postal_code' => array(
-                'collect' => 0,
-                'default' => '',
-                'weight' => 12,
-              ),
-              'province' => array(
-                'collect' => 0,
-                'default' => '',
-                'weight' => 10,
-                'widget' => 'autocomplete',
-              ),
-              'source' => array(
-                'default' => 0,
-              ),
-              'street' => array(
-                'collect' => 0,
-                'default' => '',
-                'weight' => 4,
-              ),
-            ),
-          ),
-        ),
-        'country' => 'xx',
-        'locpick' => array(
-          'user_latitude' => '',
-          'user_longitude' => '',
-        ),
-      ),
-    ),
-    'deleted' => 0,
-    'description' => 'This is the point uses will be oriented towards from the Placard location, so as to be viewing this point.',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'location_cck',
-        'settings' => array(),
-        'type' => 'location_default',
-        'weight' => 2,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_placard_orientation',
-    'label' => 'Placard Orientation',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'location_cck',
-      'settings' => array(),
-      'type' => 'location',
-      'weight' => 4,
-    ),
-  );
-
-  // Exported field_instance: 'node-placard-field_placard_tags'
+  // Exported field_instance: 'node-placard-field_placard_tags'.
   $field_instances['node-placard-field_placard_tags'] = array(
     'bundle' => 'placard',
     'default_value' => NULL,
@@ -692,11 +508,11 @@ function unity_content_types_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'taxonomy_autocomplete',
-      'weight' => 6,
+      'weight' => 7,
     ),
   );
 
-  // Exported field_instance: 'node-tour-body'
+  // Exported field_instance: 'node-tour-body'.
   $field_instances['node-tour-body'] = array(
     'bundle' => 'tour',
     'default_value' => NULL,
@@ -740,7 +556,7 @@ function unity_content_types_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-tour-field_placard_tags'
+  // Exported field_instance: 'node-tour-field_placard_tags'.
   $field_instances['node-tour-field_placard_tags'] = array(
     'bundle' => 'tour',
     'default_value' => NULL,
@@ -780,7 +596,7 @@ function unity_content_types_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-tour-field_placards'
+  // Exported field_instance: 'node-tour-field_placards'.
   $field_instances['node-tour-field_placards'] = array(
     'bundle' => 'tour',
     'default_value' => NULL,
@@ -823,7 +639,7 @@ function unity_content_types_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-unity_environment-body'
+  // Exported field_instance: 'node-unity_environment-body'.
   $field_instances['node-unity_environment-body'] = array(
     'bundle' => 'unity_environment',
     'default_value' => NULL,
@@ -867,41 +683,7 @@ function unity_content_types_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-unity_environment-field_collection_placards'
-  $field_instances['node-unity_environment-field_collection_placards'] = array(
-    'bundle' => 'unity_environment',
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 5,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_collection_placards',
-    'label' => 'Placards',
-    'required' => FALSE,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'module' => 'field_collection',
-      'settings' => array(),
-      'type' => 'field_collection_embed',
-      'weight' => 8,
-    ),
-  );
-
-  // Exported field_instance: 'node-unity_environment-field_collection_tours'
+  // Exported field_instance: 'node-unity_environment-field_collection_tours'.
   $field_instances['node-unity_environment-field_collection_tours'] = array(
     'bundle' => 'unity_environment',
     'default_value' => NULL,
@@ -937,12 +719,12 @@ function unity_content_types_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-unity_environment-field_elevation'
+  // Exported field_instance: 'node-unity_environment-field_elevation'.
   $field_instances['node-unity_environment-field_elevation'] = array(
     'bundle' => 'unity_environment',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'The elevation of the user in the starting location',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -959,7 +741,7 @@ function unity_content_types_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_elevation',
-    'label' => 'Elevation',
+    'label' => 'Starting Elevation',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -976,7 +758,7 @@ function unity_content_types_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-unity_environment-field_layer'
+  // Exported field_instance: 'node-unity_environment-field_layer'.
   $field_instances['node-unity_environment-field_layer'] = array(
     'bundle' => 'unity_environment',
     'default_value' => NULL,
@@ -1015,18 +797,22 @@ function unity_content_types_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-unity_environment-field_placard_orientation'
-  $field_instances['node-unity_environment-field_placard_orientation'] = array(
+  // Exported field_instance: 'node-unity_environment-field_orientation'.
+  $field_instances['node-unity_environment-field_orientation'] = array(
     'bundle' => 'unity_environment',
-    'default_value' => NULL,
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
     'deleted' => 0,
-    'description' => '',
+    'description' => 'The orientation of the user - where the user is looking (in degrees 0 - 360) when they first materialize in the unity environment ',
     'display' => array(
       'default' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 6,
+        'weight' => 8,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1036,22 +822,26 @@ function unity_content_types_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_placard_orientation',
-    'label' => 'Placard Orientation',
+    'field_name' => 'field_orientation',
+    'label' => 'Starting Orientation',
     'required' => 0,
     'settings' => array(
+      'max' => 360,
+      'min' => 0,
+      'prefix' => '',
+      'suffix' => '',
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 0,
-      'module' => 'location_cck',
+      'module' => 'number',
       'settings' => array(),
-      'type' => 'location',
+      'type' => 'number',
       'weight' => 4,
     ),
   );
 
-  // Exported field_instance: 'node-unity_environment-field_placard_tags'
+  // Exported field_instance: 'node-unity_environment-field_placard_tags'.
   $field_instances['node-unity_environment-field_placard_tags'] = array(
     'bundle' => 'unity_environment',
     'default_value' => NULL,
@@ -1090,7 +880,7 @@ function unity_content_types_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-unity_environment-field_starting_location'
+  // Exported field_instance: 'node-unity_environment-field_starting_location'.
   $field_instances['node-unity_environment-field_starting_location'] = array(
     'bundle' => 'unity_environment',
     'default_value' => NULL,
@@ -1133,14 +923,18 @@ function unity_content_types_field_default_field_instances() {
   t('Elevation');
   t('Image');
   t('Layer');
+  t('Orientation');
   t('Placard Location');
-  t('Placard Orientation');
   t('Placard Tags');
   t('Placards');
+  t('Starting Elevation');
   t('Starting Location');
+  t('Starting Orientation');
+  t('The elevation of the user in the starting location');
   t('The location where the user will start when they are dropped in the Unity world');
+  t('The orientation of the user (where the user is looking) in degrees 0 to 360');
+  t('The orientation of the user - where the user is looking (in degrees 0 - 360) when they first materialize in the unity environment ');
   t('This is the location in the Unity world where the placard is located.');
-  t('This is the point uses will be oriented towards from the Placard location, so as to be viewing this point.');
   t('Tour');
   t('Tours');
   t('Unity Binary');
