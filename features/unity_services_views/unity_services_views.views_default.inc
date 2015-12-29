@@ -297,7 +297,7 @@ function unity_services_views_views_default_views() {
     'skip_empty_values' => 0,
   );
   $handler->display->display_options['fields']['field_placard_tags']['delta_offset'] = '0';
-  /* Field: Content: Elevation */
+  /* Field: Content: Starting Elevation */
   $handler->display->display_options['fields']['field_elevation']['id'] = 'field_elevation';
   $handler->display->display_options['fields']['field_elevation']['table'] = 'field_data_field_elevation';
   $handler->display->display_options['fields']['field_elevation']['field'] = 'field_elevation';
@@ -307,7 +307,7 @@ function unity_services_views_views_default_views() {
     'thousand_separator' => '',
     'prefix_suffix' => 0,
   );
-  /* Field: Content: Orientation */
+  /* Field: Content: Starting Orientation */
   $handler->display->display_options['fields']['field_orientation']['id'] = 'field_orientation';
   $handler->display->display_options['fields']['field_orientation']['table'] = 'field_data_field_orientation';
   $handler->display->display_options['fields']['field_orientation']['field'] = 'field_orientation';
@@ -435,7 +435,7 @@ function unity_services_views_views_default_views() {
     'skip_empty_values' => 0,
   );
   $handler->display->display_options['fields']['field_placard_tags']['delta_offset'] = '0';
-  /* Field: Content: Elevation */
+  /* Field: Content: Starting Elevation */
   $handler->display->display_options['fields']['field_elevation']['id'] = 'field_elevation';
   $handler->display->display_options['fields']['field_elevation']['table'] = 'field_data_field_elevation';
   $handler->display->display_options['fields']['field_elevation']['field'] = 'field_elevation';
@@ -513,17 +513,6 @@ function unity_services_views_views_default_views() {
     'links' => 1,
   );
   $handler->display->display_options['fields']['field_placards']['delta_offset'] = '0';
-  /* Field: Content: Placard Tags */
-  $handler->display->display_options['fields']['field_placard_tags']['id'] = 'field_placard_tags';
-  $handler->display->display_options['fields']['field_placard_tags']['table'] = 'field_data_field_placard_tags';
-  $handler->display->display_options['fields']['field_placard_tags']['field'] = 'field_placard_tags';
-  $handler->display->display_options['fields']['field_placard_tags']['label'] = 'tags';
-  $handler->display->display_options['fields']['field_placard_tags']['type'] = 'services';
-  $handler->display->display_options['fields']['field_placard_tags']['settings'] = array(
-    'skip_safe' => 0,
-    'skip_empty_values' => 0,
-  );
-  $handler->display->display_options['fields']['field_placard_tags']['delta_offset'] = '0';
   /* Field: Content: Nid */
   $handler->display->display_options['fields']['nid']['id'] = 'nid';
   $handler->display->display_options['fields']['nid']['table'] = 'node';
@@ -619,7 +608,7 @@ function unity_services_views_views_default_views() {
     'skip_safe' => 1,
     'skip_empty_values' => 1,
   );
-  /* Field: Content: Orientation */
+  /* Field: Content: Starting Orientation */
   $handler->display->display_options['fields']['field_orientation']['id'] = 'field_orientation';
   $handler->display->display_options['fields']['field_orientation']['table'] = 'field_data_field_orientation';
   $handler->display->display_options['fields']['field_orientation']['field'] = 'field_orientation';
@@ -630,7 +619,7 @@ function unity_services_views_views_default_views() {
     'scale' => '2',
     'prefix_suffix' => 1,
   );
-  /* Field: Content: Elevation */
+  /* Field: Content: Starting Elevation */
   $handler->display->display_options['fields']['field_elevation']['id'] = 'field_elevation';
   $handler->display->display_options['fields']['field_elevation']['table'] = 'field_data_field_elevation';
   $handler->display->display_options['fields']['field_elevation']['field'] = 'field_elevation';
