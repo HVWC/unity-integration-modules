@@ -22,7 +22,7 @@ $ = window.jQuery;
         drupal_interface.triggerEvent('update_tour_info', tour_id, placard_id);
       });
       var initial_binary = $('#unity-source').val();
-      unityObject.embedUnity('unityPlayer', initial_binary, '100%', 600, null, {'wmode' : 'opaque'});
+      //unityObject.embedUnity('unityPlayer', initial_binary, '100%', 600, null, {'wmode' : 'opaque'});
 
       drupal_interface.addEventListener('update_tour_info', function() {
         var tour_id = drupal_interface.getCurrentTourId();
@@ -179,7 +179,7 @@ $ = window.jQuery;
     if (existing_binary_file != unity_binary) {
       $('#unity-source').val(unity_binary);
       // Update embedded unity
-      unityObject.embedUnity('unityPlayer', unity_binary, '100%', 600, null, {'wmode' : 'opaque'});
+      //unityObject.embedUnity('unityPlayer', unity_binary, '100%', 600, null, {'wmode' : 'opaque'});
     }
   }
   
@@ -195,6 +195,8 @@ $ = window.jQuery;
   }
   
   function update_tour_binary_placard(placard) {      
+    return;
+    /**
     if (unityObject.getObjectById('unityPlayer')) {
       var coords =  placard.location.latitude + ', ' + placard.location.longitude + ', ' + placard.location.elevation;
       var layer = placard.layer;
@@ -202,7 +204,8 @@ $ = window.jQuery;
 
       unity.SendMessage('NetworkScripts', 'SetPlayerCoordinates', coords);
       unity.SendMessage('ToggleGO', 'changeLayer', layer);
-    }  
+    }
+    */
   }
 
   function get_current_placard_item_id(placards, placard_id) {

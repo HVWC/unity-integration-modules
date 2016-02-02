@@ -30,11 +30,25 @@
     </div>
     <div class="unity-content-container">
       <div id="unityPlayer">
-        <div class="missing">
-          <a href="http://unity3d.com/webplayer/" title="Unity Web Player. Install now!">
-            <img alt="Unity Web Player. Install now!" src="http://webplayer.unity3d.com/installation/getunity.png" width="193" height="63" />
-          </a>
+        <!-- unity web player -->
+        <div class="template-wrap clear">
+          <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" width="612" height="306"></canvas>
+          <script>
+            var Module = {
+              TOTAL_MEMORY: 268435456,
+              errorhandler: null,
+              compatibilitycheck: null,
+              dataUrl: '<?php print $unity_data_file; ?>',
+              codeUrl: '<?php print $unity_js_file; ?>',
+              memUrl: '<?php print $unity_mem_file; ?>'
+            };
+          </script>
+          <script src="<?php print $unity_loader_file; ?>"></script>
+          <br>
+          <div class="logo"></div>
+          <div class="fullscreen"><img src="<?php print $unity_assets_dir ?>/fullscreen.png" width="38" height="38" alt="Fullscreen" title="Fullscreen" onclick="SetFullscreen(1);" /></div>
         </div>
+        <!-- unity web player -->
       </div>
     </div>
     <?php

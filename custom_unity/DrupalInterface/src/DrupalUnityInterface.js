@@ -68,12 +68,12 @@ export default class DrupalUnityInterface {
   sendMessageToUnity(game_object, method, message) {
     message = JSON.stringify(message);
     console.log('Sending message "'+ message +'" to game_object "'+ game_object + '" on the method "'+ method +'"');
-    let web_player = this.getWebPlayer();
-    if (web_player) {
-      web_player.SendMessage(game_object, method, message);
+    //let web_player = this.getWebPlayer();
+    if (typeof(SendMessage) != 'undefined') {
+      SendMessage(game_object, method, message);
     }
     else {
-      throw new Error('Could not get the Unity web player');
+      throw new Error('SendMessage function needed to communicate with the unity player is not defined, or not a function');
     }
   }
 

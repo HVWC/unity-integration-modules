@@ -719,6 +719,69 @@ function unity_content_types_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-unity_environment-field_datagz_file'.
+  $field_instances['node-unity_environment-field_datagz_file'] = array(
+    'bundle' => 'unity_environment',
+    'deleted' => 0,
+    'description' => 'Build file ending in .datagz',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 10,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_datagz_file',
+    'label' => 'DataGz file',
+    'required' => 0,
+    'settings' => array(
+      'description_field' => 0,
+      'file_directory' => '',
+      'file_extensions' => 'datagz',
+      'max_filesize' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'file',
+      'settings' => array(
+        'filefield_sources' => array(
+          'filefield_sources' => array(
+            'attach' => 0,
+            'clipboard' => 0,
+            'reference' => 0,
+            'remote' => 0,
+            'remotefile' => 0,
+            'upload' => 'upload',
+          ),
+          'source_attach' => array(
+            'absolute' => 0,
+            'attach_mode' => 'move',
+            'path' => 'file_attach',
+          ),
+          'source_imce' => array(
+            'imce_mode' => 0,
+          ),
+          'source_reference' => array(
+            'autocomplete' => 0,
+            'search_all_fields' => 0,
+          ),
+        ),
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'file_generic',
+      'weight' => 12,
+    ),
+  );
+
   // Exported field_instance: 'node-unity_environment-field_elevation'.
   $field_instances['node-unity_environment-field_elevation'] = array(
     'bundle' => 'unity_environment',
@@ -758,6 +821,69 @@ function unity_content_types_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-unity_environment-field_jsgz_file'.
+  $field_instances['node-unity_environment-field_jsgz_file'] = array(
+    'bundle' => 'unity_environment',
+    'deleted' => 0,
+    'description' => 'Build file ending in .jsgz',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 11,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_jsgz_file',
+    'label' => 'jsGz file',
+    'required' => 0,
+    'settings' => array(
+      'description_field' => 0,
+      'file_directory' => '',
+      'file_extensions' => 'jsgz',
+      'max_filesize' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'file',
+      'settings' => array(
+        'filefield_sources' => array(
+          'filefield_sources' => array(
+            'attach' => 0,
+            'clipboard' => 0,
+            'reference' => 0,
+            'remote' => 0,
+            'remotefile' => 0,
+            'upload' => 'upload',
+          ),
+          'source_attach' => array(
+            'absolute' => 0,
+            'attach_mode' => 'move',
+            'path' => 'file_attach',
+          ),
+          'source_imce' => array(
+            'imce_mode' => 0,
+          ),
+          'source_reference' => array(
+            'autocomplete' => 0,
+            'search_all_fields' => 0,
+          ),
+        ),
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'file_generic',
+      'weight' => 13,
+    ),
+  );
+
   // Exported field_instance: 'node-unity_environment-field_layer'.
   $field_instances['node-unity_environment-field_layer'] = array(
     'bundle' => 'unity_environment',
@@ -794,6 +920,69 @@ function unity_content_types_field_default_field_instances() {
       ),
       'type' => 'text_textfield',
       'weight' => 5,
+    ),
+  );
+
+  // Exported field_instance: 'node-unity_environment-field_memgz'.
+  $field_instances['node-unity_environment-field_memgz'] = array(
+    'bundle' => 'unity_environment',
+    'deleted' => 0,
+    'description' => 'Build file ending in .memgz',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 12,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_memgz',
+    'label' => 'memGz',
+    'required' => 0,
+    'settings' => array(
+      'description_field' => 0,
+      'file_directory' => '',
+      'file_extensions' => 'memgz',
+      'max_filesize' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'file',
+      'settings' => array(
+        'filefield_sources' => array(
+          'filefield_sources' => array(
+            'attach' => 0,
+            'clipboard' => 0,
+            'reference' => 0,
+            'remote' => 0,
+            'remotefile' => 0,
+            'upload' => 'upload',
+          ),
+          'source_attach' => array(
+            'absolute' => 0,
+            'attach_mode' => 'move',
+            'path' => 'file_attach',
+          ),
+          'source_imce' => array(
+            'imce_mode' => 0,
+          ),
+          'source_reference' => array(
+            'autocomplete' => 0,
+            'search_all_fields' => 0,
+          ),
+        ),
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'file_generic',
+      'weight' => 14,
     ),
   );
 
@@ -916,9 +1105,76 @@ function unity_content_types_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-unity_environment-field_unityloader'.
+  $field_instances['node-unity_environment-field_unityloader'] = array(
+    'bundle' => 'unity_environment',
+    'deleted' => 0,
+    'description' => 'The UnityLoader.js file from the build',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 9,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_unityloader',
+    'label' => 'UnityLoader',
+    'required' => 0,
+    'settings' => array(
+      'description_field' => 0,
+      'file_directory' => '',
+      'file_extensions' => 'js',
+      'max_filesize' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'file',
+      'settings' => array(
+        'filefield_sources' => array(
+          'filefield_sources' => array(
+            'attach' => 0,
+            'clipboard' => 0,
+            'reference' => 0,
+            'remote' => 0,
+            'remotefile' => 0,
+            'upload' => 'upload',
+          ),
+          'source_attach' => array(
+            'absolute' => 0,
+            'attach_mode' => 'move',
+            'path' => 'file_attach',
+          ),
+          'source_imce' => array(
+            'imce_mode' => 0,
+          ),
+          'source_reference' => array(
+            'autocomplete' => 0,
+            'search_all_fields' => 0,
+          ),
+        ),
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'file_generic',
+      'weight' => 11,
+    ),
+  );
+
   // Translatables
   // Included for use with string extractors like potx.
   t('Body');
+  t('Build file ending in .datagz');
+  t('Build file ending in .jsgz');
+  t('Build file ending in .memgz');
+  t('DataGz file');
   t('Description');
   t('Elevation');
   t('Image');
@@ -930,6 +1186,7 @@ function unity_content_types_field_default_field_instances() {
   t('Starting Elevation');
   t('Starting Location');
   t('Starting Orientation');
+  t('The UnityLoader.js file from the build');
   t('The elevation of the user in the starting location');
   t('The location where the user will start when they are dropped in the Unity world');
   t('The orientation of the user (where the user is looking) in degrees 0 to 360');
@@ -938,6 +1195,9 @@ function unity_content_types_field_default_field_instances() {
   t('Tour');
   t('Tours');
   t('Unity Binary');
+  t('UnityLoader');
+  t('jsGz file');
+  t('memGz');
 
   return $field_instances;
 }

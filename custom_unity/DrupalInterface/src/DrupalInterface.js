@@ -73,6 +73,11 @@ export default class DrupalInterface {
    *
    */
   getCurrentEnvironment() {
+    if (typeof(Drupal) == 'undefined') {
+      let deferred = Q.defer();
+      return deferred.promise;
+    }
+
     if (Drupal.settings.custom_unity.current_environment) {
       let environment_id = Number(Drupal.settings.custom_unity.current_environment.id);
       return this.getEnvironment(environment_id);
