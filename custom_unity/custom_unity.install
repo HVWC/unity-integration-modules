@@ -1,0 +1,8 @@
+<?php
+  /**
+  * Enable insecure uploads
+  */
+  function custom_unity_update_7001() {
+    variable_set('allow_insecure_uploads', 1);
+  }
+

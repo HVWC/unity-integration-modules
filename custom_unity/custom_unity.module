@@ -42,6 +42,26 @@ function custom_unity_form_alter(&$form, &$form_state, $form_id) {
   }
 }
 
+/**
+ * Implementation of FileField's hook_file_insert().
+ */
+function custom_unity_file_insert(&$file) {
+  //We want to circumvent Drupal's security restrictions to allow .js files to be uploaded
+  //look for files with the extenstion .js.txt and rename them to just .js
+  if (substr($file->filename, -7) == '.js.txt') {
+    $file_path = $file->filepath;
+    $new_file_path = substr($file_path, 0, strlen($file_path)-4);
+    file_move($file_path, $new_file_path);
+
+    $file->filepath = $file_path;
+    $file->filename = substr($file->filename, 0, strlen($file->filename)-4);
+    $file->filemime = file_get_mimetype($file->filename);
+    $file->destination = $file->filepath;
+    $file->status = FILE_STATUS_TEMPORARY;
+    drupal_write_record('files', $file);
+  }
+}
+
 /*
  *  Take the $uri component from the file field i.e. public://myFileName.memgz
  *  And turn it into a URL, removing the 'gz' at the end
