@@ -172,29 +172,38 @@ export default class DrupalInterface {
 
     var tour = {};
 
-    this.request('/unity-services/specific-tour', {id: tour_id})
-    .then((results) => {
+    this.cached_tours || (this.cached_tours = {});
+    
+    if (typeof(this.cached_tours[tour_id]) == 'undefined') {
 
-      tour = results.pop();
+      this.request('/unity-services/specific-tour', {id: tour_id})
+      .then((results) => {
 
-      if (tour) {
-        tour.id = Number(tour.id);
-        return this.getPlacards(tour.placard_ids);
-      }
-      else {
-        deferred.resolve(undefined);
-      }
-    })
-    .then((placards) => {
-      tour.placards = placards; 
-      delete tour.placard_ids;
-      tour = formatTour(tour);
-      deferred.resolve(tour);
-    })
-    .catch((error) => {
-      console.log(`Error retrieving tour for tour_id: ${tour_id}`);
-      console.log(error);
-    });
+        tour = results.pop();
+
+        if (tour) {
+          tour.id = Number(tour.id);
+          return this.getPlacards(tour.placard_ids);
+        }
+        else {
+          deferred.resolve(undefined);
+        }
+      })
+      .then((placards) => {
+        tour.placards = placards; 
+        delete tour.placard_ids;
+        tour = formatTour(tour);
+        this.cached_tours[tour_id] = tour;
+        deferred.resolve(tour);
+      })
+      .catch((error) => {
+        console.log(`Error retrieving tour for tour_id: ${tour_id}`);
+        console.log(error);
+      });
+    }
+    else {
+      deferred.resolve(this.cached_tours[tour_id]);
+    }
 
     return deferred.promise;
 
