@@ -83,16 +83,18 @@ $ = window.jQuery;
       });
     }
   };
-
+/*
   Drupal.behaviors.unityProjectSidebarPlacardDropdownEvent = {
     attach: function (context, settings) {
-      $('.placard-title-dropdown-container .placard-title').click(function(e) {
-        e.preventDefault();
-        $('.placard-dropdown-list').toggle();
-      })
+      if(context == window.document) {
+        $('.information-window-container .placard-title').click(function(e) {
+          e.preventDefault();
+          $('.placard-dropdown-list').toggle();
+        })
+      }
     }
   }; 
-  
+*/
   Drupal.behaviors.unityProjectInitializeResizableWorldWindow = {
     attach: function (context, settings) {
       // Set container to be resizable
@@ -155,8 +157,7 @@ $ = window.jQuery;
   };
 
   function getEnvironment() {
-    var deferred = Q.defer();
-    
+    var deferred = Q.defer();   
 
     return deferred.promise;
   }
@@ -380,8 +381,8 @@ $ = window.jQuery;
       default:
         $('.show-split-screen-world-window-btn').hide();
         $('.show-split-screen-information-window-btn').hide();
-        $('.world-window-container').width('51%');
-        $('.information-window-container').width('48%');
+        $('.world-window-container').width('50% !important');
+        $('.information-window-container').width('47.5% !important');
         if (option == 'split-world') {
           $('.show-split-screen-world-window-btn').hide();
           var remove_class_container = '.world-window-container.world-window-fullscreen, .information-window-container.world-window-fullscreen';
@@ -428,5 +429,4 @@ $ = window.jQuery;
       scrollTop: placard_scroll_position,
     }, 'fast');
   }
-
 
