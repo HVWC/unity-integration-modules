@@ -62,6 +62,7 @@
 	  attach: function attach(context, settings) {
 	    var drupal_interface = window.DrupalUnityInterface.DrupalInterface;
 	    var environment;
+	    resize_canvas();
 
 	    window.addEventListener('hashchange', onHashChange, false);
 
@@ -95,8 +96,9 @@
 	        set_window_tour_display_title(tour.title);
 	        set_active_sidebar_tour_placard_list(active_placard_list);
 	        set_active_sidebar_tour_placard_item(active_placard_item);
-	        set_placard_pager(tour_id, placard_id);
+	        set_placard_pager(tour, current_placard);
 	        resize_placard_images();
+	        resize_canvas();
 	        update_sidebar_placard_dropdown_options(tour_id, tour.placards);
 	        update_current_placard(placard_id);
 	        scroll_placard_to_top(active_placard_item);
@@ -146,8 +148,10 @@
 	    $('.world-window-container.split-screen').resizable({
 	      maxWidth: 930,
 	      minWidth: 611,
+	      handles: 'e, w',
 	      resize: function resize(event, ui) {
 	        resize_placard_images();
+	        resize_canvas();
 	      }
 	    });
 	  }
@@ -311,6 +315,12 @@
 	  $('.tour-title').text(decodeURIComponent(title));
 	}
 
+	function resize_canvas() {
+	  var width = $('.world-window-container').width();
+
+	  $('#canvas').width(width);
+	}
+
 	function resize_placard_images() {
 	  var placard_container_width = $('.information-window-container').width();
 	  $('.placard-image img').each(function () {
@@ -322,33 +332,52 @@
 	  });
 	}
 
-	function set_placard_pager(tour_id, placard_id) {
-	  var drupal_interface = window.DrupalUnityInterface.DrupalInterface;
-	  var placards;
-	  var current_page_key;
-	  var navigation_placard_id;
+	function set_placard_pager(tour, placard) {
+	  try {
+	    var next = function next(e) {
+	      e.preventDefault();
+	      window.location.hash = 'tid=' + tour.id + '&pid=' + tour.placards[next_placard_index].id;
+	    };
 
-	  $('.placard-nav').attr('href', '').hide();
+	    var prev = function prev(e) {
+	      e.preventDefault();
+	      window.location.hash = 'tid=' + tour.id + '&pid=' + tour.placards[prev_placard_index].id;
+	    };
 
-	  drupal_interface.getTour(tour_id).then(function (tour) {
-	    $.each(tour.placards, function (placard_key, placard_value) {
-	      if (Number(placard_value.id) == placard_id) {
-	        current_page_key = placard_key;
-	      }
-	    });
+	    var max_index = tour.placards.length - 1;
+	    var current_placard_index = getPlacardIndexFromTour(placard.id, tour);
 
-	    var next_page_key = current_page_key + 1;
-	    var prev_page_key = current_page_key - 1;
+	    var next_placard_index = current_placard_index < max_index ? current_placard_index + 1 : false;
+	    var prev_placard_index = current_placard_index > 0 ? current_placard_index - 1 : false;
 
-	    if (tour.placards[next_page_key]['id'] > 0) {
-	      var next_placard_link = '#tid=' + tour_id + '&pid=' + tour.placards[next_page_key]['id'];
-	      $('.placard-nav.nav-next').attr('href', next_placard_link).css('display', 'block');
+	    if (next_placard_index !== false) {
+	      $('.placard-nav.nav-next').css({ display: 'block' });
+	    } else {
+	      $('.placard-nav.nav-next').hide();
 	    }
-	    if (tour.placards[prev_page_key]['id'] > 0) {
-	      var prev_placard_link = '#tid=' + tour_id + '&pid=' + prev_page_key;
-	      $('.placard-nav.nav-prev').attr('href', prev_placard_link).css('display', 'block');
+
+	    if (prev_placard_index !== false) {
+	      $('.placard-nav.nav-prev').css({ display: 'block' });
+	    } else {
+	      $('.placard-nav.nav-prev').hide();
+	    }
+
+	    $('.placard-nav.nav-next').unbind('click').bind('click', next);
+	    $('.placard-nav.nav-prev').unbind('click').bind('click', prev);
+	  } catch (error) {
+	    console.log(error);
+	  }
+	}
+
+	function getPlacardIndexFromTour(placard_id, tour) {
+	  var placard_index;
+	  tour.placards.forEach(function (placard, index) {
+	    if (placard.id == placard_id) {
+	      placard_index = index;
+	      return false;
 	    }
 	  });
+	  return placard_index;
 	}
 
 	// Returns query string value.
@@ -420,6 +449,7 @@
 	  $(add_class_container).addClass(add_class_name);
 	  $(show_selector_name).show();
 	  resize_placard_images();
+	  resize_canvas();
 	}
 
 	function set_active_sidebar_tour_placard_list(active_list) {
@@ -888,25 +918,33 @@
 
 	      var tour = {};
 
-	      this.request('/unity-services/specific-tour', { id: tour_id }).then(function (results) {
+	      this.cached_tours || (this.cached_tours = {});
 
-	        tour = results.pop();
+	      if (typeof this.cached_tours[tour_id] == 'undefined') {
 
-	        if (tour) {
-	          tour.id = Number(tour.id);
-	          return _this2.getPlacards(tour.placard_ids);
-	        } else {
-	          deferred.resolve(undefined);
-	        }
-	      }).then(function (placards) {
-	        tour.placards = placards;
-	        delete tour.placard_ids;
-	        tour = formatTour(tour);
-	        deferred.resolve(tour);
-	      }).catch(function (error) {
-	        console.log('Error retrieving tour for tour_id: ' + tour_id);
-	        console.log(error);
-	      });
+	        this.request('/unity-services/specific-tour', { id: tour_id }).then(function (results) {
+
+	          tour = results.pop();
+
+	          if (tour) {
+	            tour.id = Number(tour.id);
+	            return _this2.getPlacards(tour.placard_ids);
+	          } else {
+	            deferred.resolve(undefined);
+	          }
+	        }).then(function (placards) {
+	          tour.placards = placards;
+	          delete tour.placard_ids;
+	          tour = formatTour(tour);
+	          _this2.cached_tours[tour_id] = tour;
+	          deferred.resolve(tour);
+	        }).catch(function (error) {
+	          console.log('Error retrieving tour for tour_id: ' + tour_id);
+	          console.log(error);
+	        });
+	      } else {
+	        deferred.resolve(this.cached_tours[tour_id]);
+	      }
 
 	      return deferred.promise;
 	    }
