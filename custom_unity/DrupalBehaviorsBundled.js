@@ -58,6 +58,8 @@
 	                    *
 	                    */
 
+	resize_canvas();
+
 	Drupal.behaviors.unityProjectInitializePageLoadDefaultValues = {
 	  attach: function attach(context, settings) {
 	    var drupal_interface = window.DrupalUnityInterface.DrupalInterface;
@@ -73,7 +75,6 @@
 	      drupal_interface.triggerEvent('update_tour_info', tour_id, placard_id);
 	    });
 	    var initial_binary = $('#unity-source').val();
-	    //unityObject.embedUnity('unityPlayer', initial_binary, '100%', 600, null, {'wmode' : 'opaque'});
 
 	    drupal_interface.addEventListener('update_tour_info', function () {
 	      var tour_id = drupal_interface.getCurrentTourId();
@@ -453,13 +454,11 @@
 	}
 
 	function set_active_sidebar_tour_placard_list(active_list) {
-	  console.log('active_list: ' + active_list);
 	  $('.placard-list').not(active_list).slideUp();
 	  $(active_list).slideDown();
 	}
 
 	function set_active_sidebar_tour_placard_item(active_item) {
-	  console.log('item active_item: ' + active_item);
 	  $('.placard-info').not(active_item).slideUp();
 	  $(active_item).slideDown();
 	}

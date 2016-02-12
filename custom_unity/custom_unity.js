@@ -6,13 +6,13 @@
 
 import DrupalUnityInterface from './DrupalInterface/src/DrupalUnityInterface';
 $ = window.jQuery;
+resize_canvas();
 
   Drupal.behaviors.unityProjectInitializePageLoadDefaultValues = {
     attach: function (context, settings) {
       var drupal_interface = window.DrupalUnityInterface.DrupalInterface;
       var environment;
       resize_canvas();
-
 
       window.addEventListener('hashchange', onHashChange, false);
 
@@ -23,7 +23,6 @@ $ = window.jQuery;
         drupal_interface.triggerEvent('update_tour_info', tour_id, placard_id);
       });
       var initial_binary = $('#unity-source').val();
-      //unityObject.embedUnity('unityPlayer', initial_binary, '100%', 600, null, {'wmode' : 'opaque'});
 
       drupal_interface.addEventListener('update_tour_info', function() {
         var tour_id = drupal_interface.getCurrentTourId();
@@ -86,18 +85,16 @@ $ = window.jQuery;
       });
     }
   };
-/*
+
   Drupal.behaviors.unityProjectSidebarPlacardDropdownEvent = {
     attach: function (context, settings) {
-      if(context == window.document) {
-        $('.information-window-container .placard-title').click(function(e) {
-          e.preventDefault();
-          $('.placard-dropdown-list').toggle();
-        })
-      }
+      $('.placard-title-dropdown-container .placard-title').click(function(e) {
+        e.preventDefault();
+        $('.placard-dropdown-list').toggle();
+      })
     }
   }; 
-*/
+  
   Drupal.behaviors.unityProjectInitializeResizableWorldWindow = {
     attach: function (context, settings) {
       // Set container to be resizable
@@ -162,7 +159,8 @@ $ = window.jQuery;
   };
 
   function getEnvironment() {
-    var deferred = Q.defer();   
+    var deferred = Q.defer();
+    
 
     return deferred.promise;
   }
@@ -415,8 +413,8 @@ $ = window.jQuery;
       default:
         $('.show-split-screen-world-window-btn').hide();
         $('.show-split-screen-information-window-btn').hide();
-        $('.world-window-container').width('50% !important');
-        $('.information-window-container').width('47.5% !important');
+        $('.world-window-container').width('51%');
+        $('.information-window-container').width('48%');
         if (option == 'split-world') {
           $('.show-split-screen-world-window-btn').hide();
           var remove_class_container = '.world-window-container.world-window-fullscreen, .information-window-container.world-window-fullscreen';
@@ -445,13 +443,11 @@ $ = window.jQuery;
   }
 
   function set_active_sidebar_tour_placard_list(active_list) {
-    console.log('active_list: '+ active_list);
     $('.placard-list').not(active_list).slideUp();
     $(active_list).slideDown();
   }
 
   function set_active_sidebar_tour_placard_item(active_item) {
-    console.log('item active_item: '+ active_item);
     $('.placard-info').not(active_item).slideUp();
     $(active_item).slideDown();    
   }
@@ -464,4 +460,5 @@ $ = window.jQuery;
       scrollTop: placard_scroll_position,
     }, 'fast');
   }
+
 

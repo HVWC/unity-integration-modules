@@ -500,4 +500,9 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
     top:3.55rem;
 }
 
+#unityPlayer {
+  background: url(images/loading.gif) no-repeat;
+  background-position: center;
+}
+
 
