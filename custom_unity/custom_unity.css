@@ -222,11 +222,12 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
   float: left;
 }
 /*.information-window-container .side-bar-action-container .information-window-size-option .show-full-information-window-btn,*/
+.information-window-container .side-bar-action-container .information-window-size-option .show-full-information-window-btn,
 .information-window-container .side-bar-action-container .information-window-size-option .show-split-screen-information-window-btn {
-  background: url(images/split-screen.png) no-repeat;
+  background: url(images/full-screen.png) no-repeat;
   text-indent: -9999em;
   display: inline-block;
-  width: 34px;
+  width: 45px;
   height: 21px;
   margin-right: 3px;
   float: right;
@@ -235,15 +236,6 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
   display: none;
 }
 
-.information-window-container .side-bar-action-container .information-window-size-option .show-full-information-window-btn {
-  background: url(images/full-screen.png) no-repeat;
-  text-indent: -9999em;
-  display: none;
-  width: 34px;
-  height: 21px;
-  margin-right: 3px;
-  float: right;
-}
 .information-window-container.split-screen .side-bar-action-container .information-window-size-option .show-full-information-window-btn {
   background: url(images/full-screen.png) no-repeat;
   display: inline-block;
@@ -393,31 +385,27 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
 .world-window-container .top-info .world-window-size-option {
   width: auto;
   display: inline-block;
-  position: absolute;
-  right: 0.3rem;
-  margin-top: 0.2rem;
+  position: relative;
+  width: 26px;
+  height: 27px;
+  float:right;
 }
 
+.world-window-container .top-info .world-window-size-option .show-split-screen-world-window-btn,
 .world-window-container.split-screen .top-info .world-window-size-option .show-full-world-window-btn {
   background: url(images/full-screen-alt.png) no-repeat;
   text-indent: -9999em;
-  display: inline-block;
-  width: 34px;
-  height: 21px;
-  margin-right: 0.3rem;
-}
-.world-window-container .top-info .world-window-size-option .show-split-screen-world-window-btn {
   display: inline-block !important;
-  background: url(images/split-screen-alt.png) no-repeat;
-  text-indent: -9999em;
-  width: 34px;
-  height: 21px;
-  margin-right: 3px;
+  width: 26px;
+  height: 27px;
+  opacity: 0.5;
+  position: absolute;
+  right: -0.4rem;
 }
+
 .world-window-container.split-screen .top-info .world-window-size-option .show-split-screen-world-window-btn{
    display: none !important;
 }
-
 
 .world-window-size-option,
 .show-full-world-window-btn,
