@@ -62,19 +62,6 @@ function custom_unity_file_insert(&$file) {
   }
 }
 
-/*
- *  Take the $uri component from the file field i.e. public://myFileName.memgz
- *  And turn it into a URL, removing the 'gz' at the end
- */
-function custom_unity_format_file_uri($uri) {
-  $url = file_create_url($uri);
-  $last_two_chars = substr($url, strlen($url) - 2);
-  if (strtolower($last_two_chars) == 'gz') {
-    $url = substr($url, 0, -2);
-  }
-  return $url;
-}
-
 /**
  * Implements hook_preprocess_node().
  *
@@ -90,10 +77,10 @@ function custom_unity_preprocess_node(&$vars) {
 
     $node = $vars['node'];
 
-    $vars['unity_mem_file']  = custom_unity_format_file_uri($node->field_memgz['und'][0]['uri']);
-    $vars['unity_data_file'] = custom_unity_format_file_uri($node->field_datagz_file['und'][0]['uri']);
-    $vars['unity_js_file'] = custom_unity_format_file_uri($node->field_jsgz_file['und'][0]['uri']);
-    $vars['unity_loader_file'] = custom_unity_format_file_uri($node->field_unityloader['und'][0]['uri']);
+    $vars['unity_mem_file']  = file_create_url($node->field_memgz['und'][0]['uri']);
+    $vars['unity_data_file'] = file_create_url($node->field_datagz_file['und'][0]['uri']);
+    $vars['unity_js_file'] = file_create_url($node->field_jsgz_file['und'][0]['uri']);
+    $vars['unity_loader_file'] = file_create_url($node->field_unityloader['und'][0]['uri']);
 
 
     $vars['unity_assets_dir'] = drupal_get_path('module', 'custom_unity') .'/unity_assets';

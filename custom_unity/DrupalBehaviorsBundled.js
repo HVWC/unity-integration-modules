@@ -72,7 +72,7 @@
 	    var placard_id = drupal_interface.getCurrentPlacardId();
 	    var environment_promise = drupal_interface.getCurrentEnvironment();
 	    environment_promise.then(function (environment) {
-	      drupal_interface.triggerEvent('update_tour_info', tour_id, placard_id);
+	      //drupal_interface.triggerEvent('update_tour_info', tour_id, placard_id);
 	    });
 	    var initial_binary = $('#unity-source').val();
 
