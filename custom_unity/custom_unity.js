@@ -296,6 +296,7 @@ resize_canvas();
     var width = $('.world-window-container').width();
     
     $('#canvas').width(width);
+    $('#canvas').height(width * .85);
   }
 
   function resize_placard_images() {

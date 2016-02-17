@@ -35,7 +35,7 @@
       <div id="unityPlayer">
         <!-- unity web player -->
         <div class="template-wrap clear">
-          <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" width="612" height="306"></canvas>
+          <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
           <script>
             var Module = {
               TOTAL_MEMORY: 268435456,
