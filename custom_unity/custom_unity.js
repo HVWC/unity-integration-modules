@@ -20,7 +20,9 @@ resize_canvas();
       var placard_id = drupal_interface.getCurrentPlacardId();
       var environment_promise = drupal_interface.getCurrentEnvironment();
       environment_promise.then((environment) => {
-        //drupal_interface.triggerEvent('update_tour_info', tour_id, placard_id);
+        if (tour_id) {
+          drupal_interface.triggerEvent('update_tour_info', tour_id, placard_id);
+        }
       });
       var initial_binary = $('#unity-source').val();
 
@@ -86,11 +88,17 @@ resize_canvas();
     }
   };
 
+  function hidePlacardDropdownList(e) {
+    $('.placard-dropdown-list').hide();
+  }
+
   Drupal.behaviors.unityProjectSidebarPlacardDropdownEvent = {
     attach: function (context, settings) {
       $('.placard-title-dropdown-container .placard-title').click(function(e) {
         e.preventDefault();
+        e.stopPropagation();
         $('.placard-dropdown-list').toggle();
+        $('body').unbind('click', hidePlacardDropdownList).bind('click', hidePlacardDropdownList);
       })
     }
   }; 
@@ -198,19 +206,6 @@ resize_canvas();
     });
   }
   
-  function update_tour_binary_placard(placard) {      
-    return;
-    /**
-    if (unityObject.getObjectById('unityPlayer')) {
-      var coords =  placard.location.latitude + ', ' + placard.location.longitude + ', ' + placard.location.elevation;
-      var layer = placard.layer;
-      var unity = unityObject.getObjectById('unityPlayer');
-
-      unity.SendMessage('NetworkScripts', 'SetPlayerCoordinates', coords);
-      unity.SendMessage('ToggleGO', 'changeLayer', layer);
-    }
-    */
-  }
 
   function get_current_placard_item_id(placards, placard_id) {
     var current_placard_key;

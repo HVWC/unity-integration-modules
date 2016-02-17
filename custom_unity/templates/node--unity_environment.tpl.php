@@ -22,6 +22,9 @@
         <span class="next-link-container">
           <a href="#" class="placard-nav nav-next">next</a>
         </span>
+      <ul class="placard-dropdown-list">
+        <li class="placard-item"></li>
+      </ul>
       </div>
       <div class="world-window-size-option">
         <a href="#" title = "Full Screen" class="show-full-world-window-btn">Full</a>
@@ -63,12 +66,6 @@
       <div class="information-window-size-option">
         <a href="#" title = "Full Screen" class="show-full-information-window-btn">Full</a>
         <a href="#" title = "Split Screen" class="show-split-screen-information-window-btn">Split</a>
-      </div>
-      <div class="placard-title-dropdown-container">
-        <span class="placard-title"></span>
-          <ul class="placard-dropdown-list">
-            <li class="placard-item"></li>
-          </ul>
       </div>
     </div>
   </div>
