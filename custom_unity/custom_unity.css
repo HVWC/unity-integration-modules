@@ -2,6 +2,14 @@ body{
   background-color: #f0f0f0 !important;
 }
 
+hgroup.site-name-slogan{ width: 97.5%;}
+
+.container-12 .grid-12,
+#zone-branding-wrapper,
+#section-header .container-12{ width:100% !important; }
+
+
+
 .fullscreen{ display:none; }
 
 #zone-content-wrapper.zone-content-wrapper{
@@ -20,25 +28,37 @@ body{
 }
 .unity-content-container{
   background: #fff;
-  /*box-shadow: inset 0 0 8px #ccc;*/
-
+  overflow: hidden;
 }
 
 #section-header{
   background: #f0f0f0 !important;
   padding-bottom: 0;
-  /*border-bottom: 3px double #eee;*/
   height: 2rem;
 }
-#main-menu li{ padding: 0 15px;}
+#main-menu li{ padding: 0 12px !important; border-right:1px solid #aaa !important;}
+#main-menu li:last-of-type{
+  border-right:none !important;
+}
+
 #main-menu li a{
-  line-height: 2em;
+  line-height: 2.5em;
+  color:#555;
   font-family: 'Helvetica Neue',helvetica,arial,sans-serif !important;
   letter-spacing: 0.05em;
 }
+#main-menu li a:hover{
+  color:#333;
+  border-bottom:1px solid #aaa;
+}
+
+#page-title{
+  margin-bottom: 0.5rem !important;
+  margin-left: 0.4rem !important;
+}
 
 h1,h2,h3{
-  letter-spacing: 0.05rem !important;
+  letter-spacing: 0.03rem !important;
   font-family: 'Helvetica Neue',helvetica,arial,sans-serif !important;
 }
 
@@ -49,16 +69,21 @@ h1{
 h1.title{
   font-size: 22px;
   font-weight: normal !important;
-  margin-bottom: 5px !important;
   color: #444;
+  color: #495b9d;
+  line-height: 1em;
+  font-family: 'Lucida Grande','Lucida Sans Unicode','Lucida Sans',Geneva,Verdana,sans-serif !important;
 }
 
 h1.site-name{
-  margin: 8px 0 0 !important;
+  margin: 0.4rem 0 1rem 0.7rem !important;
   color:#f0f0f0 !important;
   text-indent:-0.5rem;
-  padding-top:.5rem;
-  margin-top: 0.8rem !important;
+  /*padding: 0.4rem 1rem 0.2rem 0.65rem;*/
+  padding: 0.6rem 1rem 0.4rem 0.5rem !important;
+  border: 1px solid #d0d0d0;
+  border-radius: 0.3rem;
+  background: #fcfcfc;
 }
 
 h1.site-name a{
@@ -66,10 +91,15 @@ h1.site-name a{
   color: #444;
   text-transform: uppercase;
   margin-top: 0.5rem;
+  letter-spacing: 0.08rem;
 }
 
 h1.site-name a:hover{
   color: #000;
+}
+
+.placard-body{
+  letter-spacing: 0.009rem;
 }
 
 .form-item-field-placard-location-und-0-country,
@@ -110,14 +140,19 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
 .form-item-field-elevation-und-0-value.form-item div.description {
   margin-left: 130px;
 }
-.information-window-container.split-screen {
+.world-window-container.split-screen {
+  width: 50%;
+}
+.information-window-container.split-screen{
   width: 47.5%;
+}
+.information-window-container {
   display: inline-block;
   float: left;
   position: relative;
   top: 0;
 }
-.world-window-container.split-screen {
+.world-window-container {
   width: 50%;
   min-height: 590px;
   display: inline-block;
@@ -126,6 +161,15 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
   background: #fff;
   border-right: 2px solid #ddd;
   margin-bottom: 1rem;
+}
+.world-window-container.ui-resizable.split-screen::after{
+  content: '';
+  width: 0.1rem;
+  height: 5rem;
+  border-left: 4px double #aaa;
+  position: absolute;
+  right: -0.54rem;
+  top: 250px;
 }
 /*
 .world-window-container.split-screen::after{
@@ -170,6 +214,7 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
 }
 .information-window-container .tour-row-item:first-of-type{
   border-top: 1px solid #c0c0c0;
+  box-shadow: inset 0 2px 6px #808080;
 }
 .information-window-container .tour-row-item h3 {
   width: 80%;
@@ -202,7 +247,10 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
   list-style-type:none;
 }
 .information-window-container .placard-list .placard-image img{
-  width:100%
+  width: 42%;
+  float: right;
+  margin-left:1rem;
+  margin-bottom:.5rem;
 }
 .information-window-container .side-bar-action-container .information-window-size-option {
   overflow: hidden;
@@ -229,9 +277,12 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
   display: inline-block;
   width: 45px;
   height: 21px;
-  margin-right: 3px;
+  position: relative;
+  top: -0.2rem;
+  right: -1.25rem;
   float: right;
 }
+
 .information-window-container.split-screen .side-bar-action-container .information-window-size-option .show-split-screen-information-window-btn {
   display: none;
 }
@@ -250,30 +301,57 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
 }
 .information-window-container .view-information-window .placard-info {
   display: none;
-  padding: 5px 25px;
+  padding: 5px 25px 5px 30px;
 }
 .information-window-container .view-information-window .placard-info .placard-image {
   text-align: center;
-  margin-bottom: 15px;
+  /*margin-bottom: 5px;*/
 }
 .information-window-container .view-information-window .placard-info .placard-image img.spread {
   width: 100% !important;
   height: auto !important;
 }
 .information-window-container .view-information-window .views-field-title-1 {
-  padding: 7px 25px 5px;
+  padding: 7px 25px 5px 8px;
   cursor: pointer;
   border-top: 1px solid #ccc;
   display: block;
 }
 .information-window-container .view-information-window .views-field-title-1 a {
   text-decoration: none;
-  color: #000;
+  color: #777;
   display: block;
-  color: #222;
-  display: block;
-  font-size:1.18em;
+  font-size: 1.18em;
+  /*font-family: palatino, 'Palatino Linotype', georgia, serif;*/
+  letter-spacing: 0.03rem;
+  font-weight: bold;
+  text-transform: uppercase;
 }
+
+.information-window-container .view-information-window .views-field-title-1 a::before{
+  width: 0.7em;
+  height: 0.7em;
+  /* border-radius: 50%; */
+  display: inline-block;
+  margin-right: 0.6rem;
+  border: 1px solid #aaa;
+  /*box-shadow: 0 0 0.2rem #d0d0d0;*/
+  content: '';
+  position: relative;
+  top: 0.05rem;
+  background: transparent;
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+.information-window-container .view-information-window .views-field-title-1 a:hover::before{
+  background:#999;
+  border-color: #999;
+  box-shadow:none;
+}
+.information-window-container .view-information-window .views-field-title-1 a:active::before{
+  background:#777;
+}
+
 .information-window-container .view-information-window .placard-list li:first-child .views-field-title-1 {
   border: none;
 } 
@@ -282,6 +360,7 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
   list-style: none;
   display: none;
   position: absolute;
+  right: 0.25rem;
   background: #909090;
   width: 48%;
   margin-top: 38px;
@@ -296,10 +375,12 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
   width: 48%;
 }
 .information-window-container .placard-title-dropdown-container .placard-dropdown-list li {
-  padding: 7px 20px;
+  padding: 7px 20px 7px 17px;
   background: #909090;
   border-top: 1px solid transparent;
   border-bottom:1px solid transparent;
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
 }
 .information-window-container .placard-title-dropdown-container .placard-dropdown-list li:hover{
   background: #777;
@@ -311,23 +392,49 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
 .information-window-container .placard-title-dropdown-container .placard-dropdown-list li a {
   text-decoration: none;
   display: block;
-  font-size: 1.18em;
-  color:#fff;
+  font-size: 1.06em;
+  line-height: 1.12em;
+  color: #fff;
+  font-weight:bold;
   text-shadow: 0 0 2px #555;
+  text-transform: uppercase;
+  letter-spacing: 0.035rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .information-window-container .placard-title-dropdown-container .placard-dropdown-list li a:hover{
   color: #fff;
+}
+.information-window-container .placard-title-dropdown-container .placard-dropdown-list li a::before{
+  width: 0.8em;
+  height: 0.8em;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 0.7rem;
+  border: 1px solid #ddd;
+  content: '';
+  position: relative;
+  top: 0.055rem;
+  background: transparent;
+  -webkit-transition: all .05s ease-in-out;
+  transition: all .05s ease-in-out;
+}
+.information-window-container .placard-title-dropdown-container .placard-dropdown-list li:hover a::before{
+  /* background:#e0e0e0; */
+  border-color:#eee;
+}
+.information-window-container .placard-title-dropdown-container .placard-dropdown-list li:active a::before{
+  background:#ddd;
 }
 
 /* World window */
 .world-window-container .top-info {
   padding: 4px 10px;
-  /*background: #444;*/
   color: #444;
   overflow: hidden;
   font-size: 120%;
-  /*border-top: 3px double #fff;*/
-  height:26px;
+  height:29px;
 }
 .world-window-container .top-info .tour-title,
 .world-window-container .top-info .placard-title-dropdown-container {
@@ -335,7 +442,7 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
   float: left;
 }
 .world-window-container .top-info .placard-title-dropdown-container {
-  width: 73%;
+  width: 90%;
   position: relative;
   top: 0.1rem;
 }
@@ -344,16 +451,17 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
   width: 81%;
   padding-right: 1%;
   display: inline-block;
-  line-height: 2.18em;
+  line-height: 1.88em;
   padding-left: 2%;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  /*font-family: palatino, 'Palatino Linotype', georgia, serif;*/
+  letter-spacing: 0.03rem;
+  font-size: 1.25em;
 }
 .world-window-container .top-info .tour-title {
-  width: 25%;
-  line-height: 2.32em;
-  width: 12%;
+  width: 5%;
   color:transparent;
 }
 .world-window-container .top-info .placard-title-dropdown-container .prev-link-container {
@@ -368,12 +476,12 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
   width: 33px;
   height: 22px;
   display: none;
-  margin-top: .1rem;
-  opacity: 0.55;
+  margin-top: .3rem;
+  opacity: 0.35;
 }
 .world-window-container .top-info .placard-title-dropdown-container .prev-link-container a:hover,
 .world-window-container .top-info .placard-title-dropdown-container .next-link-container a:hover{
-  opacity: 0.9;
+  opacity: 0.55;
 }
 .world-window-container .top-info .placard-title-dropdown-container .prev-link-container a {
   background: url(images/prev-placard-alt.png) no-repeat;
@@ -440,11 +548,11 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
   cursor: pointer;
   float: left;
   background: transparent url(images/dropdown-arrow-down.png) no-repeat;
-  background-position: 3% 45%;
+  background-position: 2.5% 45%;
   background-size: 16px;
   padding: 8px 0 10px 45px;
-
-  font-size: 1.38em;
+  letter-spacing: 0.035rem;
+  font-size: 1.5em;
   color: #eee;
   overflow:hidden;
   white-space:nowrap;
@@ -474,18 +582,18 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
   display: inline-block;
   position: absolute;
   right: 0.5rem;
-  top:0.55rem;
+  top: 0.5rem;
 }
 
 .information-window-container.information-window-fullscreen .side-bar-action-container .information-window-size-option{
   display: inline-block;
   position: absolute;
   right: 0.5rem;
-  top:2.55rem;
+  top: 0.55rem;
 }
 
 .logged-in .information-window-container.information-window-fullscreen .side-bar-action-container .information-window-size-option{
-    top:3.55rem;
+  top:3.55rem;
 }
 
 #unityPlayer {

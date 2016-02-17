@@ -335,7 +335,7 @@ resize_canvas();
           $('.placard-nav.nav-prev').css({display: 'block'});
         }
         else {
-          $('.placard-nav.nav-prev').hide();
+          $('.placard-nav.nav-prev').css( {opacity: '0.2', cursor: 'default'});
         }
 
         function next(e) {
