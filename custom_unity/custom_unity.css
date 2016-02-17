@@ -28,7 +28,7 @@ hgroup.site-name-slogan{ width: 97.5%;}
 }
 .unity-content-container{
   background: #fff;
-  overflow: hidden;
+  /** overflow: hidden; */
 }
 
 #section-header{
@@ -171,18 +171,6 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
   right: -0.54rem;
   top: 250px;
 }
-/*
-.world-window-container.split-screen::after{
-  height:30px;
-  width:2px;
-  display:inline-block;
-  border-left:2px solid #ddd;
-  border-right:2px solid #ddd;
-  position:absolute;
-  top:30rem;
-  background: #777;
-}
-*/
 .world-window-container.world-window-fullscreen {
   width: 100%;
 }
@@ -193,9 +181,6 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
 .world-window-container.information-window-fullscreen {
   position: absolute;
   z-index: -1000;
-}
-.world-window-container.information-window-fullscreen #unityPlayer {
-  /* visibility: hidden !important;  Override inline visibility of unity web player */
 }
 .information-window-container.information-window-fullscreen {
   width: 100%;
@@ -355,7 +340,7 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
 .information-window-container .view-information-window .placard-list li:first-child .views-field-title-1 {
   border: none;
 } 
-.information-window-container .placard-title-dropdown-container .placard-dropdown-list {
+.placard-dropdown-list {
   padding: 0.4rem 0 0.5rem;
   list-style: none;
   display: none;
@@ -363,7 +348,6 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
   right: 0.25rem;
   background: #909090;
   width: 48%;
-  margin-top: 38px;
   z-index: 9999;
   box-shadow: 0 5px 10px #c0c0c0;
   box-shadow: 0 5px 10px rgba(50, 50, 50, 0.4);
@@ -371,10 +355,11 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
   border: 1px solid #CCC;
   border-top: none;
 }
-.information-window-container.world-window-fullscreen .placard-title-dropdown-container .placard-dropdown-list {
-  width: 48%;
+.placard-dropdown-list {
+  width: 81%;
+  text-align: center;
 }
-.information-window-container .placard-title-dropdown-container .placard-dropdown-list li {
+.placard-dropdown-list li {
   padding: 7px 20px 7px 17px;
   background: #909090;
   border-top: 1px solid transparent;
@@ -382,14 +367,14 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
   -webkit-transition: all .1s ease-in-out;
   transition: all .1s ease-in-out;
 }
-.information-window-container .placard-title-dropdown-container .placard-dropdown-list li:hover{
+.placard-dropdown-list li:hover{
   background: #777;
   border-color: #999;
 }
-.information-window-container .placard-title-dropdown-container .placard-dropdown-list li:last-of-type a{
+.placard-dropdown-list li:last-of-type a{
   border-radius: 0;
 }
-.information-window-container .placard-title-dropdown-container .placard-dropdown-list li a {
+.placard-dropdown-list li a {
   text-decoration: none;
   display: block;
   font-size: 1.06em;
@@ -403,7 +388,7 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.information-window-container .placard-title-dropdown-container .placard-dropdown-list li a:hover{
+.placard-dropdown-list li a:hover{
   color: #fff;
 }
 .information-window-container .placard-title-dropdown-container .placard-dropdown-list li a::before{
@@ -432,7 +417,6 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
 .world-window-container .top-info {
   padding: 4px 10px;
   color: #444;
-  overflow: hidden;
   font-size: 120%;
   height:29px;
 }
@@ -574,9 +558,6 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
 .world-window-container.split-screen .top-info .placard-title-dropdown-container .show-information-window-container {
   display: none;
 }
-
-
-
 
 .information-window-container .side-bar-action-container .information-window-size-option{
   display: inline-block;

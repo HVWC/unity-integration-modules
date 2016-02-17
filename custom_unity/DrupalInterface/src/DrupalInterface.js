@@ -437,8 +437,8 @@ let formatPlacard = function(placard) {
   location.orientation = placard.orientation;
   return {
     id: formatNumber(placard.id),
-    title: placard.title,
-    description: placard.description,
+    title: formatString(placard.title),
+    description: formatString(placard.description),
     image_url,
     location: formatLocation(location),
     layer
