@@ -2,13 +2,6 @@ body{
   background-color: #f0f0f0 !important;
 }
 
-hgroup.site-name-slogan{ width: 97.5%;}
-
-.container-12 .grid-12,
-#zone-branding-wrapper,
-#section-header .container-12{ width:100% !important; }
-
-
 
 .fullscreen{ display:none; }
 
@@ -26,77 +19,7 @@ hgroup.site-name-slogan{ width: 97.5%;}
   height: 600px;
   border: 1px solid #ccc;
 }
-.unity-content-container{
-  background: #fff;
-  /** overflow: hidden; */
-}
 
-#section-header{
-  background: #f0f0f0 !important;
-  padding-bottom: 0;
-  height: 2rem;
-}
-#main-menu li{ padding: 0 12px !important; border-right:1px solid #aaa !important;}
-#main-menu li:last-of-type{
-  border-right:none !important;
-}
-
-#main-menu li a{
-  line-height: 2.5em;
-  color:#555;
-  font-family: 'Helvetica Neue',helvetica,arial,sans-serif !important;
-  letter-spacing: 0.05em;
-}
-#main-menu li a:hover{
-  color:#333;
-  border-bottom:1px solid #aaa;
-}
-
-#page-title{
-  margin-bottom: 0.5rem !important;
-  margin-left: 0.4rem !important;
-}
-
-h1,h2,h3{
-  letter-spacing: 0.03rem !important;
-  font-family: 'Helvetica Neue',helvetica,arial,sans-serif !important;
-}
-
-h1{
-  font-weight: normal;
-}
-
-h1.title{
-  font-size: 22px;
-  font-weight: normal !important;
-  color: #444;
-  color: #495b9d;
-  line-height: 1em;
-  font-family: 'Lucida Grande','Lucida Sans Unicode','Lucida Sans',Geneva,Verdana,sans-serif !important;
-}
-
-h1.site-name{
-  margin: 0.4rem 0 1rem 0.7rem !important;
-  color:#f0f0f0 !important;
-  text-indent:-0.5rem;
-  /*padding: 0.4rem 1rem 0.2rem 0.65rem;*/
-  padding: 0.6rem 1rem 0.4rem 0.5rem !important;
-  border: 1px solid #d0d0d0;
-  border-radius: 0.3rem;
-  background: #fcfcfc;
-}
-
-h1.site-name a{
-  font-size: 1.12em;
-  color: #444;
-  text-transform: uppercase;
-  margin-top: 0.5rem;
-  letter-spacing: 0.08rem;
-}
-
-h1.site-name a:hover{
-  color: #000;
-}
 
 .placard-body{
   letter-spacing: 0.009rem;
@@ -157,7 +80,7 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
   min-height: 590px;
   display: inline-block;
   float: left;
-  margin-right: 0.5%;
+  /* margin-right: 0.5%; */
   background: #fff;
   border-right: 2px solid #ddd;
   margin-bottom: 1rem;
@@ -232,8 +155,7 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
   list-style-type:none;
 }
 .information-window-container .placard-list .placard-image img{
-  width: 42%;
-  float: right;
+  width: 100%;
   margin-left:1rem;
   margin-bottom:.5rem;
 }
@@ -578,8 +500,26 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
 }
 
 #unityPlayer {
-  background: url(images/loading.gif) no-repeat;
   background-position: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#canvas {
+
+}
+.unity-content-container{
+  position: relative;
+}
+
+#loading-indicator {
+  position: absolute;  
+  width: 50px;
+  height: 50px;
+  left: 50%;
+  margin-left: -25px;
+  margin-top: 25%;
 }
 
 

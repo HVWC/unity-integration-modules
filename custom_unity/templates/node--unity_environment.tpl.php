@@ -32,6 +32,7 @@
       </div>
     </div>
     <div class="unity-content-container">
+      <img id="loading-indicator" src='sites/all/modules/custom/unity-integration-modules/custom_unity/images/loading.gif'>
       <div id="unityPlayer">
         <!-- unity web player -->
         <div class="template-wrap clear">

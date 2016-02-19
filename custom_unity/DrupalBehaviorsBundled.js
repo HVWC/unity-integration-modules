@@ -59,6 +59,9 @@
 	                    */
 
 	resize_canvas();
+	window.onresize = function () {
+	  resize_canvas();
+	};
 
 	Drupal.behaviors.unityProjectInitializePageLoadDefaultValues = {
 	  attach: function attach(context, settings) {
@@ -114,7 +117,6 @@
 	    function onHashChange() {
 	      var tour_id = Number(get_query_string_val('tid'));
 	      var placard_id = Number(get_query_string_val('pid'));
-
 	      drupal_interface.triggerEvent('update_tour_info', tour_id, placard_id);
 	    }
 	  }
@@ -313,9 +315,11 @@
 
 	function resize_canvas() {
 	  var width = $('.world-window-container').width();
+	  var height = width * .85;
 
 	  $('#canvas').width(width);
-	  $('#canvas').height(width * .85);
+	  $('#canvas').height(height);
+	  $('.world-window-container').height(height + 20);
 	}
 
 	function resize_placard_images() {
@@ -356,7 +360,7 @@
 	    if (prev_placard_index !== false) {
 	      $('.placard-nav.nav-prev').css({ display: 'block' });
 	    } else {
-	      $('.placard-nav.nav-prev').hide();
+	      $('.placard-nav.nav-prev').css({ opacity: '0.2', cursor: 'default' });
 	    }
 
 	    $('.placard-nav.nav-next').unbind('click').bind('click', next);
@@ -462,10 +466,12 @@
 	function scroll_placard_to_top(target) {
 	  var placard_row = $(target).parent();
 	  var placard_index = placard_row.index();
-	  var placard_scroll_position = placard_index * 22;
-	  $('.placard-list').animate({
-	    scrollTop: placard_scroll_position
-	  }, 'fast');
+	  var scroll_distance = placard_index * 27 + 7;
+	  setTimeout(function () {
+	    $('.view-information-window').animate({
+	      scrollTop: scroll_distance
+	    }, 'fast');
+	  }, 100);
 	}
 
 /***/ },
