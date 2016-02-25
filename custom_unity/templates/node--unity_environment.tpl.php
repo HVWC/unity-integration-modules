@@ -13,6 +13,7 @@
   <input type="hidden" value="<?php print $default_unity_file_source; ?>" id="unity-source"/>  
   <div class="world-window-container split-screen">
     <div class="top-info">
+      <!-- <span class="placard-menu-icon"></span> -->
       <span class="tour-title"></span>
       <div class="placard-title-dropdown-container">
         <span class="prev-link-container">
