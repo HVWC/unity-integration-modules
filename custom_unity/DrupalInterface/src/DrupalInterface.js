@@ -351,9 +351,18 @@ export default class DrupalInterface {
    */
   addPlacard(placard) {
     var deferred = Q.defer();
+    let params = {
+      title: placard.title,
+      description: placard.description,
+      latitude: placard.location.latitude,
+      longitude: placard.location.longitude,
+      elevation: placard.location.elevation,
+      orientation: placard.location.orientation
+    }
+
     var query_string = '';
-    for(var key in placard) {
-      query_string = query_string.concat(key + '=' + placard[key] + '&');
+    for (var key in params) {
+      query_string = query_string.concat(key + '=' + params[key] + '&');
     }
     window.open('node/add/placard?' + query_string, '_blank');
     deferred.resolve(true);

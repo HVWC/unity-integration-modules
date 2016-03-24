@@ -21,6 +21,12 @@ function custom_unity_form_alter(&$form, &$form_state, $form_id) {
     $form['location_container_markup_bottom']['#weight'] = 5;
   }
   if ($form_id == 'placard_node_form') {
+    if (isset($_GET['title']) && $_GET['title'] != 'null') {
+      $form['title']['#default_value'] = $_GET['title'];
+    }
+    if (isset($_GET['description']) && $_GET['description'] != 'null') {
+      $form['body']['und'][0]['#default_value'] = $_GET['description'];
+    }
     if (isset($_GET['latitude'])) {
       $form['field_placard_location']['und'][0]['#default_value']['locpick']['user_latitude'] = $_GET['latitude'];
     }
@@ -33,11 +39,8 @@ function custom_unity_form_alter(&$form, &$form_state, $form_id) {
     if (isset($_GET['layer'])) {
       $form['field_layer']['und'][0]['value']['#default_value'] = $_GET['layer'];
     }
-    if (isset($_GET['orientation_latitude'])) {
-      $form['field_placard_orientation']['und'][0]['#default_value']['locpick']['user_latitude'] = $_GET['orientation_latitude'];
-    }
-    if (isset($_GET['orientation_longitude'])) {
-      $form['field_placard_orientation']['und'][0]['#default_value']['locpick']['user_longitude'] = $_GET['orientation_longitude'];
+    if (isset($_GET['orientation'])) {
+      $form['field_orientation']['und'][0]['value']['#default_value'] = $_GET['orientation'];
     }
   }
 }
@@ -72,8 +75,6 @@ function custom_unity_preprocess_node(&$vars) {
     drupal_add_js(drupal_get_path('module', 'custom_unity') . '/DrupalBehaviorsBundled.js');
     drupal_add_css('//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css', 'external');
     drupal_add_js('//code.jquery.com/ui/1.11.0/jquery-ui.js', 'external');
-
-    //echo "<pre>"; print_r($vars); die();
 
     $node = $vars['node'];
 
