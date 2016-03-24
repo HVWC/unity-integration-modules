@@ -350,6 +350,11 @@ export default class DrupalInterface {
    *
    */
   addPlacard(placard) {
+    if (typeof(placard) != 'object') {
+      throw new Error('Placard sent to addPlacard should be an object - Received '+ typeof(placard));
+    }
+    console.log(`Received placard sent to addPlacard`);
+    console.log(placard);
     var deferred = Q.defer();
     let params = {
       title: placard.title,

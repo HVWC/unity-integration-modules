@@ -721,6 +721,8 @@
 	  value: true
 	});
 
+	function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	var Q = __webpack_require__(3);
@@ -1120,6 +1122,11 @@
 	  }, {
 	    key: 'addPlacard',
 	    value: function addPlacard(placard) {
+	      if ((typeof placard === 'undefined' ? 'undefined' : _typeof(placard)) != 'object') {
+	        throw new Error('Placard sent to addPlacard should be an object - Received ' + (typeof placard === 'undefined' ? 'undefined' : _typeof(placard)));
+	      }
+	      console.log('Received placard sent to addPlacard');
+	      console.log(placard);
 	      var deferred = Q.defer();
 	      var params = {
 	        title: placard.title,
