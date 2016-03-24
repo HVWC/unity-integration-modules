@@ -2,8 +2,20 @@ body{
   background-color: #f0f0f0 !important;
 }
 
+hgroup.site-name-slogan{ width: 100%;}
+
+#zone-branding-wrapper,
+#section-header .container-12,
+#zone-branding-wrapper .container-12 .grid-12{ width:100% !important; margin:0 !important;}
 
 .fullscreen{ display:none; }
+
+.zone-menu-wrapper{
+  position:absolute;
+  top:0;
+  right:20px;
+  margin-top:0;
+}
 
 #zone-content-wrapper.zone-content-wrapper{
   padding: 0 20px;
@@ -16,10 +28,87 @@ body{
   background: white;
   box-shadow: inset 0 2px 6px #ccc;
   overflow-y: scroll;
-  height: 600px;
+  max-height: 600px;
   border: 1px solid #ccc;
 }
+.unity-content-container{
+  background: #333;
+  box-shadow: inset 0 5px 30px #111;
+  /** overflow: hidden; */
+}
 
+#section-header{
+  background: #f0f0f0 !important;
+  padding-bottom: 0;
+  height: 2rem;
+}
+#main-menu li{ padding: 0 12px !important; border-right:1px solid #aaa !important;}
+#main-menu li:last-of-type{
+  border-right:none !important;
+}
+
+#main-menu li a{
+  line-height: 2.5em;
+  color:#555;
+  font-family: 'Helvetica Neue',helvetica,arial,sans-serif !important;
+  letter-spacing: 0.05em;
+}
+#main-menu li a:hover{
+  color:#333;
+  border-bottom:1px solid #aaa;
+}
+
+#page-title{
+  margin-bottom: 0.5rem !important;
+  margin-left: 0.4rem !important;
+}
+
+h1,h2,h3{
+  letter-spacing: 0.03rem !important;
+  font-family: 'Helvetica Neue',helvetica,arial,sans-serif !important;
+}
+
+h1{
+  font-weight: normal;
+}
+
+h1.title{
+  font-size: 22px;
+  font-weight: normal !important;
+  color: #444;
+  /*color: #495b9d;*/
+  line-height: 1em;
+  font-family: 'Lucida Grande','Lucida Sans Unicode','Lucida Sans',Geneva,Verdana,sans-serif !important;
+}
+
+h1.site-name{
+  /*margin: 0.4rem 0 1rem 0.7rem !important;*/
+  margin: 0 0 1rem !important;
+  color: transparent !important;
+  /*padding: 0.4rem 1rem 0.2rem 0.65rem;*/
+  padding: 0.8rem 1rem 0.3rem 1.1rem !important;
+  border-bottom: 1px solid #e0e0e0;
+  /*border-radius: 0.3rem;*/
+  background: #707070;
+  box-shadow: 0 0 7px #999;
+}
+
+h1.site-name:first-letter{
+  font-size:0;
+  color:transparent;
+}
+
+h1.site-name a{
+  font-size: 1.12em;
+  color: #eee !important;
+  text-transform: uppercase;
+  letter-spacing: 0.08rem;
+  text-shadow: 0 0 #555;
+}
+
+h1.site-name a:hover{
+  color: #000;
+}
 
 .placard-body{
   letter-spacing: 0.009rem;
@@ -80,9 +169,9 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
   min-height: 590px;
   display: inline-block;
   float: left;
-  /* margin-right: 0.5%; */
-  background: #fff;
-  border-right: 2px solid #ddd;
+  margin-right: 0.5rem;
+  background: #444;
+  /*border-right: 2px solid #ddd;*/
   margin-bottom: 1rem;
 }
 .world-window-container.ui-resizable.split-screen::after{
@@ -91,7 +180,7 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
   height: 5rem;
   border-left: 4px double #aaa;
   position: absolute;
-  right: -0.54rem;
+  right: -0.48rem;
   top: 250px;
 }
 .world-window-container.world-window-fullscreen {
@@ -125,9 +214,9 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
   box-shadow: inset 0 2px 6px #808080;
 }
 .information-window-container .tour-row-item h3 {
-  width: 80%;
-  display: inline-block;
+  font-size: 1.62em;
   margin: 0;
+  font-weight: normal;
 }
 .information-window-container .tour-row-item .placard-list-btn {
   float: right;
@@ -141,7 +230,7 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
 .information-window-container h3 a {
   text-decoration: none;
   color: #fff;
-  text-shadow: 0 0 2px #444;
+  text-shadow: 0 0 3px #333;
   background: transparent;
 }
 .information-window-container .side-bar-action-container {
@@ -182,11 +271,11 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
   background: url(images/full-screen.png) no-repeat;
   text-indent: -9999em;
   display: inline-block;
-  width: 45px;
-  height: 21px;
+  width: 25px;
+  height: 27px;
   position: relative;
-  top: -0.2rem;
-  right: -1.25rem;
+  top: -0.1rem;
+  /* right: -1.5rem; */
   float: right;
 }
 
@@ -262,27 +351,32 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
 .information-window-container .view-information-window .placard-list li:first-child .views-field-title-1 {
   border: none;
 } 
+
+.node ul.placard-dropdown-list{
+  padding-left:0;
+}
+
 .placard-dropdown-list {
   padding: 0.4rem 0 0.5rem;
   list-style: none;
   display: none;
   position: absolute;
-  right: 0.25rem;
+  left: 50%;
+  top:2.1rem;
+  width: 350px;
+  margin-left: -175px;
   background: #909090;
-  width: 48%;
   z-index: 9999;
   box-shadow: 0 5px 10px #c0c0c0;
-  box-shadow: 0 5px 10px rgba(50, 50, 50, 0.4);
+  box-shadow: 0 3px 10px rgba(50, 50, 50, 0.4);
   border-radius: 0 0 8px 8px;
   border: 1px solid #CCC;
   border-top: none;
-}
-.placard-dropdown-list {
-  width: 81%;
   text-align: center;
+  opacity:0.9;
 }
 .placard-dropdown-list li {
-  padding: 7px 20px 7px 17px;
+  padding: 5px 20px;
   background: #909090;
   border-top: 1px solid transparent;
   border-bottom:1px solid transparent;
@@ -290,28 +384,25 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
   transition: all .1s ease-in-out;
 }
 .placard-dropdown-list li:hover{
-  background: #777;
+  background: #555;
   border-color: #999;
 }
 .placard-dropdown-list li:last-of-type a{
   border-radius: 0;
 }
 .placard-dropdown-list li a {
-  text-decoration: none;
-  display: block;
-  font-size: 1.06em;
-  line-height: 1.12em;
-  color: #fff;
-  font-weight:bold;
-  text-shadow: 0 0 2px #555;
-  text-transform: uppercase;
-  letter-spacing: 0.035rem;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-.placard-dropdown-list li a:hover{
-  color: #fff;
+text-decoration: none;
+display: block;
+font-size: 0.88em;
+line-height: 1em;
+color: #fff;
+font-weight: bold;
+text-shadow: 0 0 2px #555;
+text-transform: uppercase;
+letter-spacing: 0.035rem;
+overflow: hidden;
+white-space: nowrap;
+text-overflow: ellipsis;
 }
 .information-window-container .placard-title-dropdown-container .placard-dropdown-list li a::before{
   width: 0.8em;
@@ -340,73 +431,113 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
   padding: 4px 10px;
   color: #444;
   font-size: 120%;
-  height:29px;
+  height:31px;
+  box-shadow: inset 0 -9px 12px #ccc;
+  /*background: #ddd;*/
+  /* IE10+ */ 
+  background-image: -ms-linear-gradient(top, #dddddd 0%, #FFFFFF 100%);
+  /* Mozilla Firefox */ 
+  background-image: -moz-linear-gradient(top, #dddddd 0%, #FFFFFF 100%);
+  /* Opera */ 
+  background-image: -o-linear-gradient(top, #dddddd 0%, #FFFFFF 100%);
+  /* Webkit (Safari/Chrome 10) */ 
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #dddddd), color-stop(100, #FFFFFF));
+  /* Webkit (Chrome 11+) */ 
+  background-image: -webkit-linear-gradient(top, #dddddd 0%, #FFFFFF 100%);
+  /* W3C Markup */ 
+  background-image: linear-gradient(to bottom, #dddddd 0%, #FFFFFF 100%);
 }
 .world-window-container .top-info .tour-title,
 .world-window-container .top-info .placard-title-dropdown-container {
   display: inline-block;
   float: left;
 }
-.world-window-container .top-info .placard-title-dropdown-container {
-  width: 90%;
+.world-window-container .placard-title-dropdown-container {
+  width: 88%;
   position: relative;
-  top: 0.1rem;
+  top: 0.2rem;
+  margin-left:30px;
 }
-.world-window-container .top-info .placard-title-dropdown-container .placard-title {
+.world-window-container .placard-title-dropdown-container .placard-title {
   text-align: center;
-  width: 81%;
-  padding-right: 1%;
+  width: 81.5%;
+  margin-right: 0.5%;
+  padding-right: 1.5%;
+  padding-left: 1%;
   display: inline-block;
-  line-height: 1.88em;
-  padding-left: 2%;
+  min-height: 1.62em;
+  line-height: 1.62em;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  /*font-family: palatino, 'Palatino Linotype', georgia, serif;*/
   letter-spacing: 0.03rem;
   font-size: 1.25em;
+  border:1px solid #ccc;
+  border-radius: 0.3rem;
+  background: url(images/unity-select-arrow.png) 98% center no-repeat;
 }
-.world-window-container .top-info .tour-title {
-  width: 5%;
-  color:transparent;
+
+.world-window-container .tour-title {
+  /*width: 5%;
+  color:transparent;*/
+  display:none !important;
 }
-.world-window-container .top-info .placard-title-dropdown-container .prev-link-container {
+.world-window-container .placard-title-dropdown-container .prev-link-container {
   float: left;
 }
-.world-window-container .top-info .placard-title-dropdown-container .next-link-container {
+.world-window-container .placard-title-dropdown-container .next-link-container {
   float: right;
 }
-.world-window-container .top-info .placard-title-dropdown-container .prev-link-container a,
-.world-window-container .top-info .placard-title-dropdown-container .next-link-container a {
-  text-indent: -9999em;
-  width: 33px;
-  height: 22px;
-  display: none;
-  margin-top: .3rem;
-  opacity: 0.35;
-}
-.world-window-container .top-info .placard-title-dropdown-container .prev-link-container a:hover,
-.world-window-container .top-info .placard-title-dropdown-container .next-link-container a:hover{
-  opacity: 0.55;
-}
-.world-window-container .top-info .placard-title-dropdown-container .prev-link-container a {
+.world-window-container .placard-title-dropdown-container .prev-link-container a {
   background: url(images/prev-placard-alt.png) no-repeat;
 }
-.world-window-container .top-info .placard-title-dropdown-container .next-link-container a {
+.world-window-container .placard-title-dropdown-container .next-link-container a {
   background: url(images/next-placard-alt.png) no-repeat;
 }
 
-.world-window-container .top-info .world-window-size-option {
+.world-window-container .placard-title-dropdown-container a.placard-nav{
+  text-indent: -9999em;
+  width: 33px;
+  height: 22px;
+  display: block;
+  margin-top: .3rem;
+  opacity: 0.15;
+  cursor:default;
+}
+.world-window-container .placard-title-dropdown-container a.placard-nav:hover{
+  opacity: 0.15;
+}
+.world-window-container .placard-title-dropdown-container a.placard-nav.active{
+  opacity: 0.5;
+  cursor:pointer;
+}
+.world-window-container .placard-title-dropdown-container a.placard-nav.active:hover{
+  opacity: 0.65;
+}
+/*
+.placard-menu-icon{
+  width:27px;
+  height:27px;
+  display:inline-block;
+  position:relative;
+  top:0.12rem;
+  background:transparent;
+  float:left;
+  margin-right:1rem;
+}
+*/
+.world-window-container .world-window-size-option {
   width: auto;
   display: inline-block;
   position: relative;
   width: 26px;
   height: 27px;
   float:right;
+  top: 0.2rem;
 }
 
-.world-window-container .top-info .world-window-size-option .show-split-screen-world-window-btn,
-.world-window-container.split-screen .top-info .world-window-size-option .show-full-world-window-btn {
+.world-window-container .world-window-size-option .show-split-screen-world-window-btn,
+.world-window-container.split-screen .world-window-size-option .show-full-world-window-btn {
   background: url(images/full-screen-alt.png) no-repeat;
   text-indent: -9999em;
   display: inline-block !important;
@@ -417,7 +548,7 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
   right: -0.4rem;
 }
 
-.world-window-container.split-screen .top-info .world-window-size-option .show-split-screen-world-window-btn{
+.world-window-container.split-screen .world-window-size-option .show-split-screen-world-window-btn{
    display: none !important;
 }
 
@@ -500,7 +631,8 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
 }
 
 #unityPlayer {
-  background-position: center;
+  /*background: url(images/loading.gif) no-repeat;
+  background-position: center;*/
   position: absolute;
   top: 0;
   left: 0;
@@ -515,11 +647,11 @@ fieldset#edit-field-placard-location-und-0 .location-current-coordinates-fieldse
 
 #loading-indicator {
   position: absolute;  
-  width: 50px;
-  height: 50px;
+  width: 100px;
+  height: 100px;
   left: 50%;
-  margin-left: -25px;
-  margin-top: 25%;
+  margin-left: -50px;
+  margin-top: 35%;
 }
 
 

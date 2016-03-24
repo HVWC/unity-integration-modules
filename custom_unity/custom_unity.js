@@ -2,6 +2,7 @@
  * @file
  * Add Drupal Behaviors to control widgets on the environment page
  *
+ 8
  */
 
 import DrupalUnityInterface from './DrupalInterface/src/DrupalUnityInterface';
@@ -96,7 +97,7 @@ window.onresize = function() {
 
   Drupal.behaviors.unityProjectSidebarPlacardDropdownEvent = {
     attach: function (context, settings) {
-      $('.placard-title-dropdown-container .placard-title').click(function(e) {
+      $('.world-window-container .placard-title').click(function(e) {
         e.preventDefault();
         e.stopPropagation();
         $('.placard-dropdown-list').toggle();
@@ -319,33 +320,35 @@ window.onresize = function() {
         try {
         var max_index = tour.placards.length - 1;
         var current_placard_index = getPlacardIndexFromTour(placard.id, tour);
-
-
         var next_placard_index = current_placard_index < max_index ? current_placard_index + 1 : false;
         var prev_placard_index = current_placard_index > 0 ? current_placard_index - 1 : false;
 
         if (next_placard_index !== false) {
-          $('.placard-nav.nav-next').css({display: 'block'});
+          $('.placard-nav.nav-next').addClass('active');
         }
         else {
-          $('.placard-nav.nav-next').hide();
+          $('.placard-nav.nav-next').removeClass('active');
         }
 
         if (prev_placard_index !== false) {
-          $('.placard-nav.nav-prev').css({display: 'block'});
+          $('.placard-nav.nav-prev').addClass('active');
         }
         else {
-          $('.placard-nav.nav-prev').css( {opacity: '0.2', cursor: 'default'});
+          $('.placard-nav.nav-prev').removeClass('active');
         }
 
         function next(e) {
           e.preventDefault();
-          window.location.hash = `tid=${tour.id}&pid=${tour.placards[next_placard_index].id}`;
+          if (next_placard_index) {
+            window.location.hash = `tid=${tour.id}&pid=${tour.placards[next_placard_index].id}`;
+          }
         }
 
         function prev(e) {
           e.preventDefault();
-          window.location.hash = `tid=${tour.id}&pid=${tour.placards[prev_placard_index].id}`;
+          if (prev_placard_index !== false) {
+            window.location.hash = `tid=${tour.id}&pid=${tour.placards[prev_placard_index].id}`;
+          }
         }
 
         $('.placard-nav.nav-next').unbind('click').bind('click', next);
